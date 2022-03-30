@@ -1,5 +1,5 @@
 <x-slot name="htmlTitle">
-    <title>Kontak</title>
+    <title>{{ __('messages.contact') }}</title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
