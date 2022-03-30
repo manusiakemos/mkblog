@@ -1,0 +1,45 @@
+<x-slot name="htmlTitle">
+    <title>{@className}</title>
+</x-slot>
+
+<main class="w-full flex-grow px-3">
+    <section class="content overflow-x-scroll rounded-lg overflow-y-scroll h-full mx-auto py-5 px-5 min-h-screen">
+        <div class="pb-3">
+            <x-kit::breadcrumb :items="$breadcrumbs"/>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-lg">
+            <div class="mb-5 flex items-center justify-between">
+                <h4 class="heading mb-3 md:mb-0">
+                    {{$updateMode ? __('messages.edit') : __('messages.add')}} {@className}
+                </h4>
+
+                <x-ui.button class="bg-red-500 text-white hover:bg-red-400"
+                                wire:click="back"
+                                variant="circle">
+                    <span class="flex justify-center items-center fi-rr-cross"></span>
+                </x-ui.button>
+            </div>
+
+            <div>
+                <form action="#" wire:submit.prevent="save" class="p-3">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                            {@forms}
+                    </div>
+
+                    <div class="flex place-content-end py-4">
+                        <x-kit::button variant="rounded"
+                            wire:click="back"
+                            class="bg-red-500 hover:bg-red-400 text-white hover:bg-blue-400">
+                            Kembali
+                        </x-kit::button>
+                        <x-kit::button variant="rounded" type="submit" class="bg-indigo-500 hover:bg-indigo-400 text-white hover:bg-blue-400"
+                                       >
+                            {{$updateMode ? "Simpan Perubahan" : "Simpan"}}
+                        </x-kit::button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

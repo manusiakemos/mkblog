@@ -1,0 +1,38 @@
+<?php
+
+
+namespace App\Http\Livewire\{@className};
+
+
+use Livewire\Component;
+
+class {@className}Page extends Component
+{
+    use {@className}State;
+
+    protected $listeners = ['create', 'edit'];
+
+    public function mount()
+    {
+        session()->put('active', '{@classNameLower}');
+        session()->put('expanded', 'admin');
+    }
+
+    public function render()
+    {
+        return view('livewire.{@classNameLower}.{@classNameLower}-page')
+            ->layout('layouts.admin');
+    }
+
+     public function save()
+        {
+            $this->updateMode ? $this->update() : $this->store();
+        }
+
+         public function hydrate()
+         {
+                $this->resetErrorBag();
+                $this->resetValidation();
+          }
+
+}

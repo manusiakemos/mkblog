@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Http\Livewire\{@className};
+
+use App\Models\{@className};
+use Illuminate\Support\Str;
+
+trait {@className}State
+{
+    public $previous;
+
+    public $updateMode = false;
+
+    public array ${@classNameLower} = {@generatedProps};
+
+    public $showAlert = false;
+
+    public $alertMessage = '';
+
+    public $showToast = false;
+
+    public $toastMessage = 'Table refreshed';
+
+    public $showModalForm = false;
+
+    public $showModalConfirm = false;
+
+    public $options = [];
+
+    public array $breadcrumbs = [
+        ["link" => "#", "title" => "Admin" , "active" => false],
+        ["link" => "#", "title" => "{@className}" , "active" => true],
+    ];
+
+    public function save()
+    {
+        $this->updateMode ? $this->update() : $this->store();
+    }
+
+    public function store()
+    {
+       {@validate}
+
+        $this->updateMode = false;
+
+        $save = $this->handleFormRequest(new {@className});
+
+        if ($save) {
+                     $this->reset("{@classNameLower}");
+                                $this->showToast = true;
+                                $this->toastMessage = "{@className} berhasil ditambahkan";
+                                $this->emit('refreshDt');
+        }else{
+            abort('403', '{@className} gagal ditambahkan');
+        }
+    }
+
+    public function edit($id)
+    {
+        $this->updateMode = true;
+        ${@classNameLower} = {@className}::where('{@primaryKey}', $id)->first();
+        $this->{@classNameLower} = ${@classNameLower}->toArray();
+    }
+
+    public function update()
+    {
+       {@validate}
+
+        $save = false;
+
+        if ($this->{@classNameLower}["{@primaryKey}"]) {
+            $db = {@className}::find($this->{@classNameLower}["{@primaryKey}"]);
+            $save = $this->handleFormRequest($db);
+        } else {
+            abort('403', '{@className} Not Found');
+        }
+
+        if ($save) {
+               $this->reset("{@classNameLower}");
+                          $this->showToast = true;
+                          $this->toastMessage = "{@className} berhasil diupdate";
+                          $this->emit('refreshDt');
+            $this->back();
+        }
+    }
+
+    public function destroy($id)
+    {
+         $delete = {@className}::destroy($id);
+                if ($delete) {
+                    $this->showToast = true;
+                    $this->toastMessage = "{@className} berhasil dihapus";
+                } else {
+                    $this->showToast = true;
+                    $this->toastMessage = "{@className} gagal dihapus";
+                }
+
+                $this->emit("refreshDt", false);
+                $this->reset(['{@classNameLower}', 'updateMode', 'showModalConfirm']);
+    }
+
+    private function handleFormRequest($db): bool
+    {
+        try {
+            {@handleRequest}
+            return $db->save();
+        }catch (\Exception $e){
+            return $e->getTraceAsString();
+        }
+    }
+
+    public function back()
+    {
+        redirect($this->previous);
+    }
+
+
+}
