@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Http\Livewire\Berita;
+namespace App\Http\Livewire\Post;
 
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class BeritaForm extends Component
+class PostForm extends Component
 {
     public $image;
-    //public $myFile;
-
-    use WithFileUploads;
 
     public $type;
 
-    use BeritaState;
+    use WithFileUploads;
+
+    use PostState;
 
     public function mount($id = null)
     {
         $this->previous = url()->previous();
 
-        $this->options['kategori_berita'] = Category::all()->toArray() ?? [];
+        $this->options['category'] = Category::all()->toArray() ?? [];
 
         if ($id) {
             $this->edit($id);
@@ -29,11 +28,11 @@ class BeritaForm extends Component
 
         $this->breadcrumbs = [
             ["link" => "#", "title" => "Admin", "active" => false],
-            ["link" => route('berita'), "title" => "Berita", "active" => false],
-            ["link" => url('/'), "title" => "Berita Form", "active" => false],
+            ["link" => route('post'), "title" => trans('messages.post'), "active" => false],
+            ["link" => url('/'), "title" => trans('messages.post') . " Form", "active" => false],
         ];
 
-        session()->put('active', 'berita');
+        session()->put('active', 'post');
         session()->put('expanded', 'admin');
     }
 
@@ -43,7 +42,7 @@ class BeritaForm extends Component
             $this->toastMessage = 'Please fix the errors below.';
             $this->showToast = true;
         }
-        return view('livewire.berita.berita-form')
+        return view('livewire.post.post-form')
             ->layout('layouts.admin');
     }
 }

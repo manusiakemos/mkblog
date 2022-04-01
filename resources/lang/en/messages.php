@@ -18,6 +18,7 @@ return [
     'account' => 'Account',
     'profile' => 'Profile',
     'destroy_selected' => 'Delete selected',
+    'back' => 'Back',
     #contact
     'contact' => 'Contact',
     'contact_destroy' => 'Contact removed',
@@ -34,4 +35,12 @@ return [
     'category_not_added' => 'Category failed to insert',
     'category_updated' => 'Category updated',
     'category_not_updated' => 'Category failed to update',
+    #post
+    'post' => 'Post',
+    'post_destroy' => 'Post removed',
+    'post_not_destroy' => 'Post failed to remove',
+    'post_added' => 'Post added',
+    'post_not_added' => 'Post failed to insert',
+    'post_updated' => 'Post updated',
+    'post_not_updated' => 'Post failed to update',
 ];

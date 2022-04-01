@@ -50,10 +50,10 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
     Route::get("/category", App\Http\Livewire\Category\CategoryPage::class)
         ->name("category");
 
-    Route::get("/berita", App\Http\Livewire\Berita\BeritaPage::class)
-        ->name("berita");
-    Route::get("/berita/form/{id?}", App\Http\Livewire\Berita\BeritaForm::class)
-        ->name("berita.form");
+    Route::get("/post", App\Http\Livewire\Post\PostPage::class)
+        ->name("post");
+    Route::get("/post/form/{id?}", App\Http\Livewire\Post\PostForm::class)
+        ->name("post.form");
 
     Route::get("/gallery", App\Http\Livewire\Gallery\GalleryPage::class)
         ->name("gallery");

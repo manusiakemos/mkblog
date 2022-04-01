@@ -23,6 +23,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereKategoriId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereNama($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ * @property int $category_id
+ * @property string|null $name
+ * @property int|null $active
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  */
 class Category extends Model
 {

@@ -1,5 +1,5 @@
 <x-slot name="htmlTitle">
-    <title>Berita</title>
+    <title>{{  __('messages.post') }}</title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
@@ -9,14 +9,13 @@
         </div>
         <div class="mb-3">
             <div class="mb-5 flex flex-grow flex-col md:flex-row items-center justify-center md:justify-between">
-                <h4 class="heading mb-3 md:mb-0">Berita</h4>
+                <h4 class="heading mb-3 md:mb-0">{{  __('messages.post') }}</h4>
 
                 <div class="flex flex-wrap">
-                    <x-kit::button href="{{ route('berita.form') }}"
+                    <x-kit::button href="{{ route('post.form') }}"
                                    variant="link"
                                    class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white rounded inline-block">
-                        {{ __('messages.add')}}
-                        Berita
+                        {{ __('messages.add')}} {{  __('messages.post') }}
                     </x-kit::button>
                     <x-kit::button variant="rounded"
                                    class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white"
@@ -37,9 +36,9 @@
                               wire:model="showToast">{{$toastMessage}}
                 </x-kit::toast>
 
-                <livewire:berita.berita-table/>
+                <livewire:post.post-table/>
 
-                @include('livewire.berita._berita-confirm')
+                @include('livewire.post._post-confirm')
             </div>
 
         </div>
@@ -49,14 +48,14 @@
 @push("scripts")
     <script>
         Livewire.on("confirmDestroy", (id) => {
-            @this.set('showModalConfirm', true);
-            @this.set('berita.berita_id', id);
+        @this.set('showModalConfirm', true);
+        @this.set('post.post_id', id);
         });
         Livewire.on("refreshDt", (showNoty = false) => {
-            Livewire.components.getComponentsByName('berita.berita-table')[0].$wire.$refresh();
+            Livewire.components.getComponentsByName('post.post-table')[0].$wire.$refresh();
             if (showNoty) {
-                @this.set('showToast', true);
-                @this.set('toastMessage', 'Data berhasil di refresh');
+            @this.set('showToast', true);
+            @this.set('toastMessage', 'Data berhasil di refresh');
             }
         });
     </script>

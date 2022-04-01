@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Livewire\Berita;
+namespace App\Http\Livewire\Post;
 
-use App\Models\Berita;
+use App\Models\Post;
 use Illuminate\Support\Str;
 
-trait BeritaState
+trait PostState
 {
     public $previous;
 
     public $updateMode = false;
 
-    public array $berita = [
-        "berita_id" => "",
+    public array $post = [
+        "post_id" => "",
         "user_id" => "",
-        "kategori_id" => "",
-        "judul" => "",
+        "category_id" => "",
+        "title" => "",
         "url" => "",
-        "gambar" => "",
-        "isi" => "",
+        "image" => "",
+        "content" => "",
         "hit" => "",
-        "aktif" => false,
+        "active" => false,
     ];
 
     public $showAlert = false;
@@ -37,10 +37,7 @@ trait BeritaState
 
     public $options = [];
 
-    public array $breadcrumbs = [
-        ["link" => "#", "title" => "Admin", "active" => false],
-        ["link" => "#", "title" => "Berita", "active" => true],
-    ];
+    public array $breadcrumbs;
 
     public function save()
     {
@@ -50,59 +47,58 @@ trait BeritaState
     public function store()
     {
         $rules = [
-            "berita.kategori_id" => [
+            "post.category_id" => [
                 "required"
             ],
-            "berita.judul" => [
+            "post.title" => [
                 "required"
             ],
             "image" => [
                 "required", "image", "max:2000"
             ],
-            "berita.isi" => [
+            "post.content" => [
                 "required"
             ],
-            "berita.aktif" => [
+            "post.active" => [
                 "required"
             ],
         ];
         $this->validate($rules);
 
-
         $this->updateMode = false;
 
-        $save = $this->handleFormRequest(new Berita);
+        $save = $this->handleFormRequest(new Post);
 
         if ($save) {
-           $this->back();
+            $this->back();
         } else {
-            abort('403', 'Berita gagal ditambahkan');
+            abort('403', trans('messages.post_not_added'));
         }
     }
 
     public function edit($id)
     {
         $this->updateMode = true;
-        $berita = Berita::where('berita_id', $id)->first();
-        $this->berita = $berita->toArray();
+        $post = Post::where('post_id', $id)->first();
+        $this->post = $post->toArray();
     }
 
     public function update()
     {
         $rules = [
-            "berita.kategori_id" => [
+            "post.category_id" => [
                 "required"
             ],
-            "berita.judul" => [
+            "post.title" => [
                 "required"
             ],
             "image" => [
                 "nullable", "image", "max:2000"
             ],
-            "berita.isi" => [
+            "post.content" => [
                 "required"
             ],
-            "berita.aktif" => [
+            "post.active" => [
                 "required"
             ],
         ];
@@ -110,11 +106,11 @@ trait BeritaState
 
         $save = false;
 
-        if ($this->berita["berita_id"]) {
-            $db = Berita::find($this->berita["berita_id"]);
+        if ($this->post["post_id"]) {
+            $db = Post::find($this->post["post_id"]);
             $save = $this->handleFormRequest($db);
         } else {
-            abort('403', 'Berita Not Found');
+            abort('403', 'Post Not Found');
         }
 
         if ($save) {
@@ -124,37 +120,37 @@ trait BeritaState
 
     public function destroy($id)
     {
-        $delete = Berita::destroy($id);
+        $delete = Post::destroy($id);
         if ($delete) {
             $this->showAlert = true;
-            $this->alertMessage = "Berita berhasil dihapus";
+            $this->alertMessage =  trans('messages.post_destroy');
         } else {
             $this->showAlert = true;
-            $this->alertMessage = "Berita gagal dihapus";
+            $this->alertMessage =  trans('messages.post_not_destroy');
         }
 
         $this->emit("refreshDt", false);
-        $this->reset(['berita', 'updateMode', 'showModalConfirm']);
+        $this->reset(['post', 'updateMode', 'showModalConfirm']);
     }
 
-    private function handleFormRequest(Berita $db): bool
+    private function handleFormRequest(Post $db): bool
     {
         if ($this->updateMode) {
-            $db->user_id = $this->berita['user_id'];
+            $db->user_id = $this->post['user_id'];
         } else {
             $db->user_id = auth()->id();
         }
-        $db->kategori_id = $this->berita['kategori_id'];
-        $db->judul = $this->berita['judul'];
-        $db->url = Str::snake($this->berita['judul'], "-");
-        $db->isi = $this->berita['isi'];
+        $db->category_id = $this->post['category_id'];
+        $db->title = $this->post['title'];
+        $db->url = Str::snake($this->post['title'], "-");
+        $db->content = $this->post['content'];
         $db->hit = 0;
-        $db->aktif = $this->berita['aktif'];
+        $db->active = $this->post['active'];
 
         if ($this->image) {
             $filename = Str::random() . "." . $this->image->getClientOriginalExtension();
-            $db->gambar = $filename;
-            $this->image->storeAs('/images/berita/', $filename, 'public');
+            $db->image = $filename;
+            $this->image->storeAs('/images/post/', $filename, 'public');
         }
 
         return $db->save();

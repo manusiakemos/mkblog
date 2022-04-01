@@ -1,30 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\Berita;
+namespace App\Http\Livewire\Post;
 
-use App\Models\Berita;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class BeritaTable extends DataTableComponent
+class PostTable extends DataTableComponent
 {
 
     //public string $defaultSortColumn = '';
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions= [];
 
     protected int $index = 0;
-    public string $primaryKey = "id";
+    public string $primaryKey = "post_id";
+
+    public function mount()
+    {
+        $this->bulkActions = [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
 
     public function destroySelected()
     {
-        Berita::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
-        $this->emit("showToast", ["message" => "Beritas Deleted Successfully", "type" => "success"]);
+        Post::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
+        $this->emit("showToast", ["message" => trans('messages.post_destroy') , "type" => "success"]);
     }
 
     public function columns(): array
@@ -41,28 +46,28 @@ class BeritaTable extends DataTableComponent
             }),
 
             Column::make('user', 'user_id')
-                ->format(function ($value, $column, Berita $row) {
+                ->format(function ($value, $column, Post $row) {
                     return $row->user->name ;
                 })
                 ->searchable()
                 ->sortable(),
-            Column::make('kategori', 'kategori_id')
-                ->format(function ($value, $column, Berita $row) {
-                    return $row->kategori->nama ;
+            Column::make('category', 'category')
+                ->format(function ($value, $column, Post $row) {
+                    return $row->category->name ;
                 })
                 ->searchable()
                 ->sortable(),
-            Column::make('judul', 'judul')
+            Column::make('title', 'title')
                 ->searchable()
                 ->sortable(),
             Column::make('url', 'url')
                 ->searchable()
                 ->sortable(),
-            Column::make('gambar', 'gambar')
-                ->format(function ($value, $column, Berita $row) {
-                    return "<a target='_blank' href='".asset('/storage/images/berita/'.$value)."'>
-                                <img class='h-12' alt='".$value."' src='".asset('/storage/images/berita/'.$value)."'/>
-                            </a>";
+            Column::make('image', 'image')
+                ->format(function ($value, $column, Post $row) {
+                    return view('livewire.tables.image',[
+                        'path' => asset('/storage/images/post/'.$value)
+                    ]);
                 })
                 ->asHtml()
                 ->searchable()
@@ -71,7 +76,7 @@ class BeritaTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make('aktif', 'aktif')
-                ->format(function ($value, $column, Berita $row) {
+                ->format(function ($value, $column, Post $row) {
                     return boolean_text($value, "ya", "tidak");
                 })
                 ->searchable()
@@ -80,14 +85,14 @@ class BeritaTable extends DataTableComponent
 
             Column::make("Action")
                 ->asHtml()
-                ->format(function ($value, $column, Berita $row) {
-                    return view('livewire.berita._berita-action', compact('row'));
+                ->format(function ($value, $column, Post $row) {
+                    return view('livewire.post._post-action', compact('row'));
                 }),
         ];
     }
 
     public function query(): Builder
     {
-        return Berita::with(['user','kategori']);
+        return Post::with(['user','category']);
     }
 }

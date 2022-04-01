@@ -26,8 +26,8 @@
             <x-ui.navigation-item session-active="category" link="{{route('category')}}">
                 Category
             </x-ui.navigation-item>
-            <x-ui.navigation-item session-active="berita" link="{{route('berita')}}">
-                Postingan
+            <x-ui.navigation-item session-active="berita" link="{{route('post')}}">
+                Post
             </x-ui.navigation-item>
         </x-ui.navigation-dropdown>
 

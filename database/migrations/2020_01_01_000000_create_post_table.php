@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeritaTable extends Migration
+class CreatePostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateBeritaTable extends Migration
      */
     public function up()
     {
-        Schema::create('berita', function (Blueprint $table) {
-            $table->id('berita_id');
+        Schema::create('post', function (Blueprint $table) {
+            $table->id('post_id');
             $table->integer('user_id')
                 ->nullable();
-            $table->integer('kategori_id')
+            $table->integer('category_id')
                 ->nullable();
-            $table->string('judul', 190)
+            $table->string('title', 190)
                 ->nullable();
             $table->text('url')
                 ->nullable();
-            $table->string('gambar', 190)
+            $table->string('image', 190)
                 ->nullable();
-            $table->text('isi')
+            $table->text('content')
                 ->nullable();
             $table->integer('hit')
                 ->nullable();
-            $table->boolean('aktif')
+            $table->boolean('active')
                 ->nullable();
 
             //$table->softDeletes();
