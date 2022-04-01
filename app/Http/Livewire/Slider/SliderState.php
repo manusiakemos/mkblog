@@ -71,11 +71,11 @@ trait SliderState
 
         if ($save) {
             $this->reset(["slider", "myFile"]);
-            $this->showToast = true;
-            $this->toastMessage = "Slider berhasil ditambahkan";
+            $this->showAlert = true;
+            $this->alertMessage = trans('messages.slide_added');
             $this->emit('refreshDt');
         } else {
-            abort('403', 'Slider gagal ditambahkan');
+            abort('403', trans('messages.slide_not_added'));
         }
     }
 
@@ -113,13 +113,13 @@ trait SliderState
             $db = Slider::find($this->slider["slider_id"]);
             $save = $this->handleFormRequest($db);
         } else {
-            abort('403', 'Slider Not Found');
+            abort('403', 'Slide Not Found');
         }
 
         if ($save) {
             $this->reset("slider");
-            $this->showToast = true;
-            $this->toastMessage = "Slider berhasil diupdate";
+            $this->showAlert = true;
+            $this->alertMessage = trans('messages.slide_updated');
             $this->emit('refreshDt');
         }
     }
@@ -129,10 +129,10 @@ trait SliderState
         $delete = Slider::destroy($id);
         if ($delete) {
             $this->showToast = true;
-            $this->toastMessage = "Slider berhasil dihapus";
+            $this->toastMessage = trans('messages.slide_destroy');
         } else {
             $this->showToast = true;
-            $this->toastMessage = "Slider gagal dihapus";
+            $this->toastMessage = trans('messages.slide_not_destroy');
         }
 
         $this->emit("refreshDt", false);

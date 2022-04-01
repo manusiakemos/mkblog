@@ -43,4 +43,12 @@ return [
     'post_not_added' => 'Post failed to insert',
     'post_updated' => 'Post updated',
     'post_not_updated' => 'Post failed to update',
+    #slide
+    'slide' => 'Slide',
+    'slide_destroy' => 'Slide removed',
+    'slide_not_destroy' => 'Slide failed to remove',
+    'slide_added' => 'Slide added',
+    'slide_not_added' => 'Slide failed to insert',
+    'slide_updated' => 'Slide updated',
+    'slide_not_updated' => 'Slide failed to update',
 ];

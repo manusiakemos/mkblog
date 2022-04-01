@@ -48,7 +48,7 @@ class SliderTable extends DataTableComponent
                 ->sortable(),
             Column::make('Image', 'slider_image')
                 ->format(function ($value) {
-                    $path = asset('storage/images/slider/'. $value);
+                    $path = asset('storage/images/slider/' . $value);
                     return view('livewire.tables.image', compact('path'));
                 })
                 ->asHtml()
@@ -62,7 +62,7 @@ class SliderTable extends DataTableComponent
                 ->sortable(),
             Column::make("Action")
                 ->asHtml()
-                ->addClass("text-center")
+                ->addClass("text-center flex justify-center")
                 ->format(function ($value, $column, Slider $row) {
                     return view('livewire.slider._slider-action', compact('row'));
                 }),
