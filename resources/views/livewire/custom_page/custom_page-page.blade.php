@@ -1,5 +1,5 @@
 <x-slot name="htmlTitle">
-    <title>Halaman</title>
+    <title>{{ __('messages.page') }}</title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
@@ -9,14 +9,15 @@
         </div>
         <div class="mb-3">
             <div class="mb-5 flex flex-grow flex-col md:flex-row items-center justify-center md:justify-between">
-                <h4 class="heading mb-3 md:mb-0">Halaman</h4>
+                <h4 class="heading mb-3 md:mb-0">{{ __('messages.page') }}</h4>
 
-                <div class="flex flex-wrap">
-                    <x-kit::button href="{{ route('halaman.form') }}"
-                                   variant="link"
-                                   class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white rounded inline-block">
+                <div>
+                    <x-kit::button
+                        href="{{ route('custom-page.form') }}"
+                        variant="link"
+                        class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white rounded inline-block">
                         {{ __('messages.add')}}
-                        Halaman
+                        {{ __('messages.page') }}
                     </x-kit::button>
                     <x-kit::button variant="rounded"
                                    class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white"
@@ -35,9 +36,9 @@
                               wire:model="showToast">{{$toastMessage}}
                 </x-kit::toast>
 
-                <livewire:halaman.halaman-table/>
+                <livewire:custom-page.custom-page-table/>
 
-                @include('livewire.halaman._halaman-confirm')
+                @include('livewire.custom_page._custom_page-confirm')
             </div>
 
         </div>
@@ -48,13 +49,13 @@
     <script>
         Livewire.on("confirmDestroy", (id) => {
         @this.set('showModalConfirm', true);
-        @this.set('halaman.halaman_id', id);
+        @this.set('custom_page.custom_page_id', id);
         });
         Livewire.on("refreshDt", (showNoty = false) => {
-            Livewire.components.getComponentsByName('halaman.halaman-table')[0].$wire.$refresh();
+            Livewire.components.getComponentsByName('custom-page.custom-page-table')[0].$wire.$refresh();
             if (showNoty) {
-                @this.set('showToast', true);
-                @this.set('toastMessage', 'Data berhasil di refresh');
+            @this.set('showToast', true);
+            @this.set('toastMessage', 'Data berhasil di refresh');
             }
         });
     </script>

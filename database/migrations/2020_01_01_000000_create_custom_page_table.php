@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostTable extends Migration
+class CreateCustomPageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,13 @@ class CreatePostTable extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table) {
-            $table->id('post_id');
-            $table->integer('user_id')
-                ->nullable();
-            $table->integer('category_id')
-                ->nullable();
+        Schema::create('custom_page', function (Blueprint $table) {
+            $table->id('custom_page_id');
             $table->string('title', 190)
                 ->nullable();
-            $table->longText('url')
+            $table->string('url', 190)
                 ->nullable();
-            $table->string('image', 190)
-                ->nullable();
-            $table->text('content')
-                ->nullable();
-            $table->integer('hit')
+            $table->longText('content')
                 ->nullable();
             $table->boolean('active')
                 ->nullable();
@@ -44,6 +36,6 @@ class CreatePostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita');
+        Schema::dropIfExists('custom_page');
     }
 }

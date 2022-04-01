@@ -1,24 +1,23 @@
 <?php
 
 
-namespace App\Http\Livewire\Halaman;
-
+namespace App\Http\Livewire\CustomPage;
 
 use Livewire\Component;
 
-class HalamanPage extends Component
+class CustomPages extends Component
 {
-    use HalamanState;
+    use CustomPageState;
 
     public function mount()
     {
-        session()->put('active', 'halaman');
+        session()->put('active', 'custom-page');
         session()->put('expanded', 'admin');
     }
 
     public function render()
     {
-        return view('livewire.halaman.halaman-page')
+        return view('livewire.custom_page.custom_page-page')
             ->layout('layouts.admin');
     }
 

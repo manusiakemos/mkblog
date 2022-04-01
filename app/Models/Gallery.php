@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereKeterangan($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereUpdatedAt($value)
+ * @property string|null $title
+ * @property string|null $desc
+ * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereDesc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereTitle($value)
  */
 class Gallery extends Model
 {

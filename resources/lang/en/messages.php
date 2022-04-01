@@ -59,4 +59,12 @@ return [
     'gallery_not_added' => 'Gallery failed to insert',
     'gallery_updated' => 'Gallery updated',
     'gallery_not_updated' => 'Gallery failed to update',
+    #page
+    'page' => 'Custom page',
+    'page_destroy' => 'Custom page removed',
+    'page_not_destroy' => 'Custom page failed to remove',
+    'page_added' => 'Custom page added',
+    'page_not_added' => 'Custom page failed to insert',
+    'page_updated' => 'Custom page updated',
+    'page_not_updated' => 'Custom page failed to update',
 ];

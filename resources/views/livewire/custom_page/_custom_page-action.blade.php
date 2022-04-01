@@ -1,5 +1,5 @@
 <div class="flex items-center">
-    <a href="{{route('halaman.form', $row->halaman_id)}}">
+    <a href="{{route('custom-page.form', $row->custom_page_id)}}">
         <x-kit::button class="bg-primary-500 text-white hover:bg-primary-400"
                         variant="circle"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
@@ -8,7 +8,7 @@
     </a>
     <x-kit::button variant="circle" class="bg-danger-500 text-white hover:bg-danger-400"
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"
-                    wire:click="$emit('confirmDestroy', {{$row->halaman_id}})">
+                    wire:click="$emit('confirmDestroy', {{$row->custom_page_id}})">
         <span class="flex items-center fi-rr-trash"></span>
     </x-kit::button>
 </div>

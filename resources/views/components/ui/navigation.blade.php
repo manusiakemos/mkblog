@@ -56,20 +56,20 @@
             </div>
         </x-ui.navigation-item>
 
-        {{--halaman--}}
-        <x-ui.navigation-item session-active="halaman" link="{{route('halaman')}}">
+        {{--custom page--}}
+        <x-ui.navigation-item session-active="custom-page" link="{{route('custom-page')}}">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z"/>
                     <path
-                        class="{{session('active') != 'halaman' ? 'dark:fill-white' : 'fill-white'}}"
+                        class="{{session('active') != 'custom-page' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M5 8v12h14V8H5zm0-2h14V4H5v2zm15 16H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zM7 10h4v4H7v-4zm0 6h10v2H7v-2zm6-5h4v2h-4v-2z"/>
                 </svg>
-                <span class="ml-3"> Halaman </span>
+                <span class="ml-3"> Custom Page </span>
             </div>
         </x-ui.navigation-item>
 
-        {{--kontak--}}
+        {{--contact--}}
         <x-ui.navigation-item session-active="contact" link="{{route('contact')}}">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -167,9 +167,6 @@
                     Crud Generator
                 </x-ui.navigation-item>
             @endif
-            <x-ui.navigation-item session-active="schematics" link="{{url('schematics')}}">
-                Schematics
-            </x-ui.navigation-item>
             <x-ui.navigation-item session-active="routes" link="{{url('routes')}}">
                 Pretty Routes
             </x-ui.navigation-item>

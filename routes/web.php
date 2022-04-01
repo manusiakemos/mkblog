@@ -58,10 +58,10 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
     Route::get("/gallery", App\Http\Livewire\Gallery\GalleryPage::class)
         ->name("gallery");
 
-    Route::get("/halaman", App\Http\Livewire\Halaman\HalamanPage::class)
-        ->name("halaman");
-    Route::get("/halaman/form/{halaman_id?}", App\Http\Livewire\Halaman\HalamanForm::class)
-        ->name("halaman.form");
+    Route::get("/custom-page", App\Http\Livewire\CustomPage\CustomPages::class)
+        ->name("custom-page");
+    Route::get("/custom-page/form/{custom_page_id?}", App\Http\Livewire\CustomPage\CustomPageForm::class)
+        ->name("custom-page.form");
 
     Route::get("/contact", App\Http\Livewire\Contact\ContactPage::class)
         ->name("contact");
