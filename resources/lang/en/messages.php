@@ -51,4 +51,12 @@ return [
     'slide_not_added' => 'Slide failed to insert',
     'slide_updated' => 'Slide updated',
     'slide_not_updated' => 'Slide failed to update',
+    #gallery
+    'gallery' => 'Gallery',
+    'gallery_destroy' => 'Gallery removed',
+    'gallery_not_destroy' => 'Gallery failed to remove',
+    'gallery_added' => 'Gallery added',
+    'gallery_not_added' => 'Gallery failed to insert',
+    'gallery_updated' => 'Gallery updated',
+    'gallery_not_updated' => 'Gallery failed to update',
 ];

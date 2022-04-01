@@ -18,8 +18,8 @@ trait GalleryState
 
     public array $gallery = [
         "gallery_id" => "",
-        "judul" => "",
-        "keterangan" => "",
+        "title" => "",
+        "desc" => "",
         "slug" => "",
         "filename" => "",
     ];
@@ -52,15 +52,14 @@ trait GalleryState
     public function store()
     {
         $rules = [
-            "gallery.judul" => [
+            "gallery.title" => [
                 "required"
             ],
-            "gallery.keterangan" => [
+            "gallery.desc" => [
                 "required"
             ],
         ];
         $this->validate($rules);
-
 
         $this->updateMode = false;
 
@@ -70,10 +69,10 @@ trait GalleryState
             $this->reset(["gallery", "image"]);
             $this->showModalForm = false;
             $this->showAlert = true;
-            $this->alertMessage = "Gallery berhasil ditambahkan";
+            $this->alertMessage = trans('messages.gallery_added');
             $this->emit('refreshDt');
         } else {
-            abort('403', 'Gallery gagal ditambahkan');
+            abort('403', trans('messages.gallery_not_added'));
         }
     }
 
@@ -88,10 +87,10 @@ trait GalleryState
     public function update()
     {
         $rules = [
-            "gallery.judul" => [
+            "gallery.title" => [
                 "required"
             ],
-            "gallery.keterangan" => [
+            "gallery.desc" => [
                 "required"
             ],
         ];
@@ -110,7 +109,7 @@ trait GalleryState
             $this->reset(["gallery", "image"]);
             $this->showModalForm = false;
             $this->showAlert = true;
-            $this->alertMessage = "Gallery berhasil diupdate";
+            $this->alertMessage = trans('messages.updated');
             $this->emit('refreshDt');
         }
     }
@@ -120,10 +119,10 @@ trait GalleryState
         $delete = Gallery::destroy($id);
         if ($delete) {
             $this->showAlert = true;
-            $this->alertMessage = "Gallery berhasil dihapus";
+            $this->alertMessage = trans('messages.gallery_destroy');
         } else {
             $this->showAlert = true;
-            $this->alertMessage = "Gallery gagal dihapus";
+            $this->alertMessage = trans('messages.gallery_not_destroy');
         }
 
         $this->emit("refreshDt", false);
@@ -132,11 +131,11 @@ trait GalleryState
 
     private function handleFormRequest(Gallery $db): bool
     {
-        $db->judul = $this->gallery['judul'];
-        $db->keterangan = $this->gallery['keterangan'];
-        $db->slug = Str::snake($this->gallery['judul'], "-");
+        $db->title = $this->gallery['title'];
+        $db->desc = $this->gallery['desc'];
+        $db->slug = Str::snake($this->gallery['title'], "-");
 
-        if ($this->image){
+        if ($this->image) {
             $filename = Str::random() . "." . $this->image->getClientOriginalExtension();
             $db->filename = $filename;
             $this->image->storeAs('/images/gallery/', $filename, 'public');

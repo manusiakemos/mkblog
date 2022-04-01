@@ -14,17 +14,22 @@ class GalleryTable extends DataTableComponent
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions = [];
 
     protected int $index = 0;
     public string $primaryKey = "gallery_id";
 
+    public function mount()
+    {
+        $this->bulkActions =  [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
+
     public function destroySelected()
     {
         Gallery::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
-        $this->emit("showToast", ["message" => "Gallerys Deleted Successfully", "type" => "success"]);
+        $this->emit("showToast", ["message" => trans('messages.gallery_destroy'), "type" => "success"]);
     }
 
     public function columns(): array
@@ -40,18 +45,18 @@ class GalleryTable extends DataTableComponent
                 return ++$this->index;
             }),
 
-            Column::make('judul', 'judul')
+            Column::make('title', 'title')
                 ->searchable()
                 ->sortable(),
-            Column::make('keterangan', 'keterangan')
+            Column::make('description', 'desc')
                 ->searchable()
                 ->sortable(),
             Column::make('slug', 'slug')
                 ->searchable()
                 ->sortable(),
             Column::make('filename', 'filename')
-                ->format(function ($value){
-                    $path = asset('storage/images/gallery/'. $value);
+                ->format(function ($value) {
+                    $path = asset('storage/images/gallery/' . $value);
                     return view('livewire.tables.image', compact('path'));
                 })
                 ->asHtml()

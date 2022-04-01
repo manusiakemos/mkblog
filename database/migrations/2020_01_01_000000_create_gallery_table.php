@@ -15,9 +15,9 @@ class CreateGalleryTable extends Migration
     {
         Schema::create('gallery', function (Blueprint $table) {
             $table->id('gallery_id');
-            $table->string('judul', 190)
+            $table->string('title', 190)
                 ->nullable();
-            $table->text('keterangan')
+            $table->text('desc')
                 ->nullable();
             $table->text('slug')
                 ->nullable();

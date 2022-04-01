@@ -1,12 +1,12 @@
 <div xmlns:x-kit="http://www.w3.org/1999/html">
     <x-kit::modal id="modal_form" wire:model="showModalForm" size="md">
         <form action="#" wire:submit.prevent="save" class="p-3">
-            <x-kit::form-group text-label="judul" input-id="judul" error-name="gallery.judul">
-                <x-kit::input id="judul" wire:model.defer="gallery.judul"/>
+            <x-kit::form-group text-label="title" input-id="title" error-name="gallery.title">
+                <x-kit::input id="title" wire:model.defer="gallery.title"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="keterangan" input-id="keterangan" error-name="gallery.keterangan">
-                <x-kit::textarea id="keterangan" wire:model.defer="gallery.keterangan"/>
+            <x-kit::form-group text-label="desc" input-id="desc" error-name="gallery.desc">
+                <x-kit::textarea id="desc" wire:model.defer="gallery.desc"/>
             </x-kit::form-group>
 
             <x-kit::form-group text-label="image" input-id="image" error-name="image">
