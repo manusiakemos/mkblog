@@ -1,30 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\KategoriBerita;
+namespace App\Http\Livewire\Category;
 
-use App\Models\KategoriBerita;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class KategoriBeritaTable extends DataTableComponent
+class CategoryTable extends DataTableComponent
 {
 
     //public string $defaultSortColumn = '';
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions = [];
 
     protected int $index = 0;
-    public string $primaryKey = "kategori_id";
+    public string $primaryKey = "category_id";
+
+    public function mount()
+    {
+        $this->bulkActions = [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
 
     public function destroySelected()
     {
-        KategoriBerita::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
-        $this->emit("showToast", ["message" => "KategoriBeritas Deleted Successfully", "type" => "success"]);
+        Category::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
+        $this->emit("showToast", ["message" => trans('messages.category_destroy'), "type" => "success"]);
     }
 
     public function columns(): array
@@ -40,25 +45,26 @@ class KategoriBeritaTable extends DataTableComponent
                 return ++$this->index;
             }),
 
-            Column::make('nama', 'nama')
+            Column::make('name', 'name')
                 ->searchable()
                 ->sortable(),
-            Column::make('aktif', 'aktif')
-                ->format(function ($value, $column, KategoriBerita $row) {
+            Column::make('active', 'active')
+                ->format(function ($value, $column, Category $row) {
                     return boolean_text($value);
                 })
                 ->searchable()
                 ->sortable(),
             Column::make("Action")
+                ->addClass("flex justify-center")
                 ->asHtml()
-                ->format(function ($value, $column, KategoriBerita $row) {
-                    return view('livewire.kategori_berita._kategori_berita-action', compact('row'));
+                ->format(function ($value, $column, Category $row) {
+                    return view('livewire.category._category-action', compact('row'));
                 }),
         ];
     }
 
     public function query(): Builder
     {
-        return KategoriBerita::query();
+        return Category::query();
     }
 }

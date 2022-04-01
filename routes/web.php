@@ -47,8 +47,8 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
     Route::get("/slider", App\Http\Livewire\Slider\SliderPage::class)
         ->name("slider");
 
-    Route::get("/kategori-berita", App\Http\Livewire\KategoriBerita\KategoriBeritaPage::class)
-        ->name("kategori-berita");
+    Route::get("/category", App\Http\Livewire\Category\CategoryPage::class)
+        ->name("category");
 
     Route::get("/berita", App\Http\Livewire\Berita\BeritaPage::class)
         ->name("berita");

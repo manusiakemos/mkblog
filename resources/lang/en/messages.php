@@ -17,6 +17,7 @@ return [
     'delete_confirm_text' => 'You cant undo this action',
     'account' => 'Account',
     'profile' => 'Profile',
+    'destroy_selected' => 'Delete selected',
     #contact
     'contact' => 'Contact',
     'contact_destroy' => 'Contact removed',
@@ -25,4 +26,12 @@ return [
     'contact_not_added' => 'Contact failed to insert',
     'contact_updated' => 'Contact updated',
     'contact_not_updated' => 'Contact failed to update',
+    #category
+    'category' => 'Category',
+    'category_destroy' => 'Category removed',
+    'category_not_destroy' => 'Category failed to remove',
+    'category_added' => 'Category added',
+    'category_not_added' => 'Category failed to insert',
+    'category_updated' => 'Category updated',
+    'category_not_updated' => 'Category failed to update',
 ];

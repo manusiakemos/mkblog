@@ -1,5 +1,5 @@
 <x-slot name="htmlTitle">
-    <title>Kategori Berita</title>
+    <title>{{ __('messages.category') }}</title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
@@ -9,14 +9,14 @@
         </div>
         <div class="mb-3">
             <div class="mb-5 flex flex-grow flex-col md:flex-row items-center justify-center md:justify-between">
-                <h4 class="heading mb-3 md:mb-0">Kategori Berita</h4>
+                <h4 class="heading mb-3 md:mb-0">{{ __('messages.category') }}</h4>
 
                 <div class="flex flex-wrap">
                     <x-kit::button
                         wire:click="$emit('create')"
                         variant="rounded"
                         class="mb-3 bg-primary-500 hover:bg-primary-400 text-white font-semibold uppercase">
-                        {{__('messages.add')}} Kategori Berita
+                        {{__('messages.add')}} {{ __('messages.category') }}
                     </x-kit::button>
                     <x-kit::button
                         variant="rounded"
@@ -35,13 +35,13 @@
                     wire:model="showAlert">{{$alertMessage}}</x-kit::alert>
 
                 {{-- livewire table data --}}
-                <livewire:kategori-berita.kategori-berita-table/>
+                <livewire:category.category-table/>
 
                 {{-- modal form --}}
-                @include('livewire.kategori_berita._kategori_berita-form')
+                @include('livewire.category._category-form')
 
                 {{-- confirm delete --}}
-                @include('livewire.kategori_berita._kategori_berita-confirm')
+                @include('livewire.category._category-confirm')
 
                 {{-- toast data table --}}
                 <x-kit::toast
@@ -58,16 +58,16 @@
 @push("scripts")
     <script>
         Livewire.on("confirmDestroy", (id) => {
-        @this.set('showModalConfirm', true);
-        @this.set('kategori_berita.kategori_id', id);
+            @this.set('showModalConfirm', true);
+            @this.set('category.category_id', id);
         });
         Livewire.on("refreshDt", (showNoty = false) => {
             console.log('refreshDt');
-            Livewire.components.getComponentsByName('kategori-berita.kategori-berita-table')[0].$wire.$refresh();
-            if (showNoty) {
-            @this.set('showToast', true);
-            @this.set('toastMessage', '{{__('messages.table_refreshed')}}');
-            }
+                Livewire.components.getComponentsByName('category.category-table')[0].$wire.$refresh();
+                if (showNoty) {
+                    @this.set('showToast', true);
+                    @this.set('toastMessage', '{{__('messages.table_refreshed')}}');
+                }
         });
     </script>
 @endpush

@@ -2,12 +2,12 @@
     <x-kit::modal id="modal_form" wire:model="showModalForm" size="md">
         <form action="#" wire:submit.prevent="save" class="p-3">
 
-            <x-kit::form-group text-label="nama" input-id="nama" error-name="kategori_berita.nama">
-                <x-kit::input id="nama" wire:model.defer="kategori_berita.nama"/>
+            <x-kit::form-group text-label="name" input-id="name" error-name="category.name">
+                <x-kit::input id="name" wire:model.defer="category.name"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="aktif" input-id="aktif" error-name="kategori_berita.aktif">
-                <x-kit::toggle wire:model.defer="kategori_berita.aktif"/>
+            <x-kit::form-group text-label="active" input-id="active" error-name="category.active">
+                <x-kit::toggle wire:model.defer="category.active"/>
             </x-kit::form-group>
 
             <div class="flex place-content-end py-4">

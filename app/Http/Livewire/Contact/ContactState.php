@@ -33,10 +33,7 @@ trait ContactState
 
     public $showModalConfirm = false;
 
-    public array $breadcrumbs = [
-        ["link" => "#", "title" => "Admin", "active" => false],
-        ["link" => "#", "title" => "Contact", "active" => true],
-    ];
+    public array $breadcrumbs = [];
 
     public $options = [];
 

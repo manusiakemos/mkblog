@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\KategoriBerita;
+namespace App\Http\Livewire\Category;
 
-use App\Models\KategoriBerita;
+use App\Models\Category;
 
-trait KategoriBeritaState
+trait CategoryState
 {
     public $previous;
 
     public $updateMode = false;
 
-    public array $kategori_berita = [
-        "kategori_id" => "",
-        "nama" => "",
-        "aktif" => true,
+    public array $category = [
+        "category_id" => "",
+        "name" => "",
+        "active" => true,
         "created_at" => "",
         "updated_at" => "",
     ];
@@ -30,26 +30,23 @@ trait KategoriBeritaState
 
     public $showModalConfirm = false;
 
-    public array $breadcrumbs = [
-        ["link" => "#", "title" => "Admin", "active" => false],
-        ["link" => "#", "title" => "Kategori Berita", "active" => true],
-    ];
+    public array $breadcrumbs = [];
 
     public $options = [];
 
     public function create()
     {
-        $this->reset(['kategori_berita', 'updateMode']);
+        $this->reset(['category', 'updateMode']);
         $this->showModalForm = true;
     }
 
     public function store()
     {
         $rules = [
-            "kategori_berita.nama" => [
+            "category.name" => [
                 "required"
             ],
-            "kategori_berita.aktif" => [
+            "category.active" => [
                 "required"
             ],
         ];
@@ -57,34 +54,34 @@ trait KategoriBeritaState
 
         $this->updateMode = false;
 
-        $save = $this->handleFormRequest(new KategoriBerita);
+        $save = $this->handleFormRequest(new Category);
 
         if ($save) {
             $this->showAlert = true;
-            $this->alertMessage = "Kategori Berita berhasil diupdate";
+            $this->alertMessage = trans('messages.category_added');
             $this->emit('refreshDt');
-            $this->reset("kategori_berita");
+            $this->reset("category");
             $this->showModalForm = false;
         } else {
-            abort('403', 'Kategori Berita gagal ditambahkan');
+            abort('403',  trans('messages.category_not_added'));
         }
     }
 
     public function edit($id)
     {
         $this->updateMode = true;
-        $kategori_berita = KategoriBerita::where('kategori_id', $id)->first();
-        $this->kategori_berita = $kategori_berita->toArray();
+        $category = Category::where('category_id', $id)->first();
+        $this->category = $category->toArray();
         $this->showModalForm = true;
     }
 
     public function update()
     {
         $rules = [
-            "kategori_berita.nama" => [
+            "category.name" => [
                 "required"
             ],
-            "kategori_berita.aktif" => [
+            "category.active" => [
                 "required"
             ]
         ];
@@ -93,41 +90,41 @@ trait KategoriBeritaState
 
         $save = false;
 
-        if ($this->kategori_berita["kategori_id"]) {
-            $db = KategoriBerita::find($this->kategori_berita["kategori_id"]);
+        if ($this->category["category_id"]) {
+            $db = Category::find($this->category["category_id"]);
             $save = $this->handleFormRequest($db);
         } else {
-            abort('403', 'Kategori Berita Not Found');
+            abort('403',  trans('messages.category_not_updated'));
         }
 
         if ($save) {
-            $this->reset("kategori_berita");
+            $this->reset("category");
             $this->showModalForm = false;
             $this->showAlert = true;
-            $this->alertMessage = "Kategori Berita berhasil diupdate";
+            $this->alertMessage =  trans('messages.category_updated');
             $this->emit('refreshDt');
         }
     }
 
     public function destroy($id)
     {
-        $delete = KategoriBerita::destroy($id);
+        $delete = Category::destroy($id);
         if ($delete) {
             $this->showAlert = true;
-            $this->alertMessage = "Kategori Berita berhasil dihapus";
+            $this->alertMessage = trans('messages.category_destroy');
         } else {
             $this->showAlert = true;
-            $this->alertMessage = "Kategori Berita gagal dihapus";
+            $this->alertMessage =  trans('messages.category_not_destroy');
         }
 
         $this->emit("refreshDt");
-        $this->reset(['kategori_berita', 'updateMode', 'showModalConfirm']);
+        $this->reset(['category', 'updateMode', 'showModalConfirm']);
     }
 
     private function handleFormRequest($db): bool
     {
-        $db->nama = $this->kategori_berita['nama'];
-        $db->aktif = $this->kategori_berita['aktif'];
+        $db->name = $this->category['name'];
+        $db->active = $this->category['active'];
         return $db->save();
     }
 

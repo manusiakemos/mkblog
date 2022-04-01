@@ -1,6 +1,6 @@
 <!doctype html>
 <html style="background: black"
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+      lang="{{ str_replace('_', '-', app()->getLocale()) }}"
       x-data="{
                 theme: localStorage.getItem('theme'),
                 theme_icon : localStorage.getItem('theme-icon'),
@@ -12,10 +12,11 @@
                     }
                     if (val !== 'system'){
                         localStorage.setItem('theme', val)
+                        console.log('theme : ' + this.theme);
                     }else{
-                        console.log('system');
                         this.theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
                         localStorage.setItem('theme', this.theme);
+                        console.log('theme system : ' + this.theme);
                     }
                 }
               }"
@@ -46,8 +47,9 @@
     @stack("styles")
 
     @stack("scriptsBefore")
-
-    <script data-turbolinks-eval="false" data-turbo-eval="false" src="{{ asset('js/alpine-editor.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script data-turbolinks-eval="false" data-turbo-eval="false" src="{{ asset('js/alpine-editor.js') }}"
+            defer></script>
 
 </head>
 <body

@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\User;
 
-use Livewire\WithFileUploads;
-
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
+use Livewire\WithFileUploads;
 
 trait UserState
 {
@@ -90,7 +88,8 @@ trait UserState
             'user.name' => 'required',
             'user.username' => 'required',
             'user.role' => 'required',
-            'user.email'=> [
+            'user.email' => [
+                'nullable',
                 'email',
                 Rule::unique('users', 'email')
             ]
@@ -106,10 +105,10 @@ trait UserState
         if ($save) {
             $this->showModalForm = false;
             $this->reset("user");
-            $this->showToast = true;
-            $this->toastMessage = "User berhasil ditambahkan";
-            $this->emit( 'refreshDt');
-        }else{
+            $this->showAlert = true;
+            $this->alertMessage = "User berhasil ditambahkan";
+            $this->emit('refreshDt');
+        } else {
             abort('403', 'User gagal ditambahkan');
         }
     }
@@ -122,6 +121,7 @@ trait UserState
             'user.role' => 'required',
             'user.email' => [
                 'nullable',
+                'email',
                 Rule::unique('users', 'email')
                     ->ignore($this->user['user_id'], 'user_id'),
             ]
@@ -141,9 +141,9 @@ trait UserState
         if ($save) {
             $this->showModalForm = false;
             $this->reset("user");
-            $this->showToast = true;
-            $this->toastMessage = "User berhasil diupdate";
-            $this->emit( 'refreshDt');
+            $this->showAlert = true;
+            $this->alertMessage = "User berhasil diupdate";
+            $this->emit('refreshDt');
         }
     }
 
@@ -176,11 +176,11 @@ trait UserState
         $delete = User::destroy($id);
 
         if ($delete) {
-            $this->showToast = true;
-            $this->toastMessage = "User berhasil dihapus";
+            $this->showAlert = true;
+            $this->alertMessage = "User berhasil dihapus";
         } else {
-            $this->showToast = true;
-            $this->toastMessage = "User gagal dihapus";
+            $this->showAlert = true;
+            $this->alertMessage = "User gagal dihapus";
         }
 
         $this->emit("refreshDt", false);

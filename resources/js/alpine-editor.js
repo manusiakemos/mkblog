@@ -25,9 +25,9 @@ document.addEventListener("alpine:init", () => {
             content: content,
             updatedAt: Date.now(),
             iframe:{
-              src:'',
-              width: 500,
-              height: 500,
+                src:'',
+                width: 500,
+                height: 500,
             },
             active: {
                 undo:false,
@@ -57,8 +57,8 @@ document.addEventListener("alpine:init", () => {
             },
             lfm(id, type, options) {
                 if (type === 'file'){
-                   var width = window.prompt("width:", "500");
-                   var height = window.prompt("height:", "500");
+                    var width = window.prompt("width:", "500");
+                    var height = window.prompt("height:", "500");
                 }
                 let route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
                 window.open(route_prefix + '?type=' + type || 'file', 'FileManager', 'width=700,height=600');
@@ -213,7 +213,7 @@ document.addEventListener("alpine:init", () => {
                     let title = null;
                     let el = document.querySelector(`#${item[0]}-btn`);
                     if (el){
-                       title = el.getAttribute('data-title');
+                        title = el.getAttribute('data-title');
                     }
                     if (title === null){
                         title =  item[0];

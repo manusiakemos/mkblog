@@ -53,9 +53,7 @@
          x-transition:leave="ease-in duration-100"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0">
-        <div
-            aria-hidden="true"
-            class="z-10 fixed inset-0 backdrop-filter backdrop-blur-sm backdrop-sepia-0 bg-black/30 dark:bg-white/30 overflow-hidden"></div>
+        <div class="absolute inset-0 backdrop-filter backdrop-blur-sm backdrop-sepia-0 bg-black/30 dark:bg-white/30"></div>
     </div>
 
     <div x-show="show" class="mb-6 bg-white dark:bg-gray-800 rounded-lg overflow-auto shadow-xl

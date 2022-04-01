@@ -32,6 +32,27 @@ php artisan migrate
 php artisan storage:link
 
 php artisan db:seed
+
+touch .htaccess
+```
+
+
+
+## htaccess cpanel
+
+
+
+```bash
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force SSL
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Remove public folder form URL
+  RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
 ```
 
 

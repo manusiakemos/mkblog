@@ -15,6 +15,10 @@ class ContactPage extends Component
 
     public function mount()
     {
+        $this->breadcrumbs = [
+            ["link" => "#", "title" => "Admin", "active" => false],
+            ["link" => "#", "title" => trans('messages.contact'), "active" => true],
+        ];
         session()->put('active', 'contact');
         session()->put('expanded', 'contact');
     }

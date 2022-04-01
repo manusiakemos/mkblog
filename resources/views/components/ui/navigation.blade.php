@@ -23,8 +23,8 @@
                 </svg>
                 <span class="ml-3"> Post </span>
             </x-slot>
-            <x-ui.navigation-item session-active="kategori_berita" link="{{route('kategori-berita')}}">
-                Kategori
+            <x-ui.navigation-item session-active="category" link="{{route('category')}}">
+                Category
             </x-ui.navigation-item>
             <x-ui.navigation-item session-active="berita" link="{{route('berita')}}">
                 Postingan

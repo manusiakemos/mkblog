@@ -1,5 +1,6 @@
 <div x-cloak
      style="display: none;"
+     x-on:click.self="show=false"
     x-transition:enter-start="opacity-0 transform scale-x-0 translate-x-1/2"
     x-transition:enter-end="opacity-100 transform scale-x-100 translate-x-0"
     x-transition:enter="transition ease-in duration-200"

@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereUserId($value)
  * @property int $berita_id
- * @property-read \App\Models\KategoriBerita|null $kategori
+ * @property-read \App\Models\Category|null $kategori
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereBeritaId($value)
  */
@@ -58,6 +58,6 @@ class Berita extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriBerita::class, "kategori_id", "kategori_id");
+        return $this->belongsTo(Category::class, "kategori_id", "kategori_id");
     }
 }

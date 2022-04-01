@@ -1,27 +1,31 @@
 <?php
 
 
-namespace App\Http\Livewire\KategoriBerita;
+namespace App\Http\Livewire\Category;
 
 
 use Livewire\Component;
 
-class KategoriBeritaPage extends Component
+class CategoryPage extends Component
 {
-    use KategoriBeritaState;
+    use CategoryState;
 
     protected $listeners = ['create', 'edit'];
 
     public function mount()
     {
-//        dd(KategoriBerita::all());
-        session()->put('active', 'kategori_berita');
+        $this->breadcrumbs = [
+            ["link" => "#", "title" => "Admin", "active" => false],
+            ["link" => "#", "title" => trans('messages.category'), "active" => true],
+        ];
+
+        session()->put('active', 'category');
         session()->put('expanded', 'post');
     }
 
     public function render()
     {
-        return view('livewire.kategori_berita.kategori_berita-page')
+        return view('livewire.category.category-page')
             ->layout('layouts.admin');
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Berita;
 
-use App\Models\KategoriBerita;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -21,7 +21,7 @@ class BeritaForm extends Component
     {
         $this->previous = url()->previous();
 
-        $this->options['kategori_berita'] = KategoriBerita::all()->toArray() ?? [];
+        $this->options['kategori_berita'] = Category::all()->toArray() ?? [];
 
         if ($id) {
             $this->edit($id);
