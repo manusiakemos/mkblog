@@ -55,7 +55,7 @@ class CategoryTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make("Action")
-                ->addClass("flex justify-center")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
                 ->format(function ($value, $column, Category $row) {
                     return view('livewire.category._category-action', compact('row'));

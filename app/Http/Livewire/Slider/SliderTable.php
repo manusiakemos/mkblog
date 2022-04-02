@@ -62,7 +62,7 @@ class SliderTable extends DataTableComponent
                 ->sortable(),
             Column::make("Action")
                 ->asHtml()
-                ->addClass("text-center flex justify-center")
+                ->addClass("flex items-center justify-center h-16")
                 ->format(function ($value, $column, Slider $row) {
                     return view('livewire.slider._slider-action', compact('row'));
                 }),

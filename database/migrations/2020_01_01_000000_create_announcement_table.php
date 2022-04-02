@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengumumanTable extends Migration
+class CreateAnnouncementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreatePengumumanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengumuman', function (Blueprint $table) {
-            $table->id('pengumuman_id');
-            $table->string('judul', 190)
+        Schema::create('announcement', function (Blueprint $table) {
+            $table->id('announcement_id');
+            $table->string('title', 190)
                 ->nullable();
-            $table->date('tanggal')
+            $table->date('date')
                 ->nullable();
-            $table->boolean('rutin')
+            $table->boolean('repeat')
                 ->nullable();
-            $table->boolean('aktif')
+            $table->boolean('active')
                 ->nullable();
-            $table->text('isi')
+            $table->longText('content')
                 ->nullable();
             //$table->softDeletes();
             $table->timestamps();
@@ -37,6 +37,6 @@ class CreatePengumumanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengumuman');
+        Schema::dropIfExists('announcement');
     }
 }

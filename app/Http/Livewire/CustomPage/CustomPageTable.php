@@ -58,9 +58,8 @@ class CustomPageTable extends DataTableComponent
                 })
                 ->searchable()
                 ->sortable(),
-
-
             Column::make("Action")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
                 ->format(function ($value, $column, CustomPage $row) {
                     return view('livewire.custom_page._custom_page-action', compact('row'));

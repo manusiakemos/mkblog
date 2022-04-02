@@ -63,6 +63,7 @@ class GalleryTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make("Action")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
                 ->format(function ($value, $column, Gallery $row) {
                     return view('livewire.gallery._gallery-action', compact('row'));

@@ -1,5 +1,7 @@
 <x-slot name="htmlTitle">
-    <title>Pengumuman</title>
+    <title>
+        {{ __('messages.announcement') }}
+    </title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
@@ -9,13 +11,15 @@
         </div>
         <div class="mb-3">
             <div class="mb-5 flex flex-grow flex-col md:flex-row items-center justify-center md:justify-between">
-                <h4 class="heading mb-3 md:mb-0">Pengumuman</h4>
+                <h4 class="heading mb-3 md:mb-0">
+                    {{ __('messages.announcement') }}
+                </h4>
 
                 <div class="flex flex-wrap">
                     <x-kit::button wire:click="$emit('create')"
                                    variant="rounded"
                                    class="mb-3 bg-primary-500 hover:bg-primary-400 text-white font-semibold uppercase">
-                        {{__('messages.add')}} Pengumuman
+                        {{__('messages.add')}} {{ __('messages.announcement') }}
                     </x-kit::button>
                     <x-kit::button variant="rounded"
                                    class="btn bg-primary-500 hover:bg-primary-400 text-white font-semibold uppercase mb-3 mx-1"
@@ -27,16 +31,18 @@
 
             <div>
                 {{-- livewire alert --}}
-                <x-kit::alert class="text-white bg-primary-500 mb-3 border-2 border-white" duration="3000"
-                              wire:model="showAlert">{{$alertMessage}}</x-kit::alert>
+                <x-kit::alert
+                    class="text-white bg-primary-500 mb-3 border-2 border-white"
+                    duration="3000"
+                    wire:model="showAlert">{{$alertMessage}}</x-kit::alert>
                 {{-- livewire table data --}}
-                <livewire:pengumuman.pengumuman-table/>
+                <livewire:announcement.announcement-table/>
 
                 {{-- modal form --}}
-                @include('livewire.pengumuman._pengumuman-form')
+                @include('livewire.announcement._announcement-form')
 
                 {{-- confirm delete --}}
-                @include('livewire.pengumuman._pengumuman-confirm')
+                @include('livewire.announcement._announcement-confirm')
 
                 {{-- toast data table --}}
                 <x-kit::toast class="text-white bg-primary-500 mb-3 border-2 border-white" duration="3000"
@@ -52,10 +58,10 @@
     <script>
         Livewire.on("confirmDestroy", (id) => {
         @this.set('showModalConfirm', true);
-        @this.set('pengumuman.pengumuman_id', id);
+        @this.set('announcement.announcement_id', id);
         });
         Livewire.on("refreshDt", (showNoty = false) => {
-            Livewire.components.getComponentsByName('pengumuman.pengumuman-table')[0].$wire.$refresh();
+            Livewire.components.getComponentsByName('announcement.announcement-table')[0].$wire.$refresh();
             if (showNoty) {
             @this.set('showToast', true);
             @this.set('toastMessage', '{{__('messages.table_refreshed')}}');

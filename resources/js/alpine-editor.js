@@ -1,8 +1,5 @@
 import Alpine from "alpinejs";
 
-import tippy from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
-
 import {Editor} from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
@@ -53,7 +50,8 @@ document.addEventListener("alpine:init", () => {
                 alignCenter:false,
                 alignJustify:false,
                 iframe:false,
-                embedFile:false
+                embedFile:false,
+                code:false,
             },
             lfm(id, type, options) {
                 if (type === 'file'){
@@ -201,6 +199,9 @@ document.addEventListener("alpine:init", () => {
             toggleTextAlign(type){
                 Alpine.raw(this.editor).chain().focus().setTextAlign(type).run();
             },
+            toggleCode(){
+                Alpine.raw(this.editor).chain().toggleCode().focus().run();
+            },
             setIframe(){
                 let url = window.prompt('URL');
                 let width = window.prompt('width');
@@ -209,19 +210,7 @@ document.addEventListener("alpine:init", () => {
                 Alpine.raw(this.editor).chain().focus().setIframe({ src: url, width:width, height:height}).run();
             },
             setTippy(){
-                Object.entries(this.active).forEach(item => {
-                    let title = null;
-                    let el = document.querySelector(`#${item[0]}-btn`);
-                    if (el){
-                        title = el.getAttribute('data-title');
-                    }
-                    if (title === null){
-                        title =  item[0];
-                    }
-                    tippy(`#${item[0]}-btn`, {
-                        content: title,
-                    });
-                });
+
             },
             init() {
                 const _this = this;
@@ -283,6 +272,7 @@ document.addEventListener("alpine:init", () => {
                         _this.active.alignRight = editor.isActive({ textAlign: 'right' });
                         _this.active.alignJustify = editor.isActive({ textAlign: 'justify' });
                         _this.active.iframe = editor.isActive('iframe');
+                        _this.active.code = editor.isActive('code');
                     },
                     onUpdate({editor}) {
                         _this.updatedAt = Date.now();

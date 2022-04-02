@@ -55,7 +55,7 @@ class ContactTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make("Action")
-                ->addClass("flex justify-center")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
                 ->format(function ($value, $column, Contact $row) {
                     return view('livewire.contact._contact-action', compact('row'));

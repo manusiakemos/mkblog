@@ -67,4 +67,12 @@ return [
     'page_not_added' => 'Custom page failed to insert',
     'page_updated' => 'Custom page updated',
     'page_not_updated' => 'Custom page failed to update',
+    #announcement
+    'announcement' => 'Announcement',
+    'announcement_destroy' => 'Announcement removed',
+    'announcement_not_destroy' => 'Announcement failed to remove',
+    'announcement_added' => 'Announcement added',
+    'announcement_not_added' => 'Announcement failed to insert',
+    'announcement_updated' => 'Announcement updated',
+    'announcement_not_updated' => 'Announcement failed to update',
 ];

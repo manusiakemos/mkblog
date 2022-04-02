@@ -1,27 +1,29 @@
 <div>
     <x-kit::modal id="modal_form" wire:model="showModalForm" size="md">
         <form action="#" wire:submit.prevent="save" class="p-3">
-            <x-kit::form-group text-label="judul" input-id="judul" error-name="pengumuman.judul">
-                <x-kit::input id="judul" wire:model.defer="pengumuman.judul"/>
+            <x-kit::form-group text-label="title" input-id="title" error-name="announcement.title">
+                <x-kit::input id="title" wire:model.defer="announcement.title"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="tanggal" input-id="tanggal" error-name="pengumuman.tanggal">
+            <x-kit::form-group text-label="date" input-id="date" error-name="announcement.date">
                 <div class="md:w-1/3">
-                    <x-kit::input type="date" id="tanggal" wire:model.defer="pengumuman.tanggal"/>
+                    <x-kit::input type="date" id="date" wire:model.defer="announcement.date"/>
                 </div>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="rutin" input-id="rutin" error-name="pengumuman.rutin">
-                <x-kit::toggle wire:model="pengumuman.rutin"/>
+            <x-kit::form-group text-label="repeat yearly" input-id="repeat" error-name="announcement.repeat">
+                <x-kit::toggle wire:model="announcement.repeat"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="aktif" input-id="aktif" error-name="pengumuman.aktif">
-                <x-kit::toggle wire:model="pengumuman.aktif"/>
+            <x-kit::form-group text-label="active" input-id="active" error-name="announcement.active">
+                <x-kit::toggle wire:model="announcement.active"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="isi" input-id="isi" error-name="pengumuman.isi">
-                <x-kit::textarea id="isi" wire:model.defer="pengumuman.isi"/>
-            </x-kit::form-group>
+            @if($showModalForm)
+                <x-kit::form-group text-label="content" input-id="content" error-name="announcement.content">
+                    <x-kit::editor wire:model="announcement.content" id="content"/>
+                </x-kit::form-group>
+            @endif
 
 
             <div class="md:flex place-content-end py-4">

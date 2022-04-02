@@ -1,29 +1,34 @@
 <?php
 
-namespace App\Http\Livewire\Pengumuman;
+namespace App\Http\Livewire\Announcement;
 
-use App\Models\Pengumuman;
+use App\Models\Announcement;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class PengumumanTable extends DataTableComponent
+class AnnouncementTable extends DataTableComponent
 {
 
     //public string $defaultSortColumn = '';
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions = [];
 
     protected int $index = 0;
-    public string $primaryKey = "pengumuman_id";
+    public string $primaryKey = "announcement_id";
+
+    public function mount()
+    {
+        $this->bulkActions = [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
 
     public function destroySelected()
     {
-        Pengumuman::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
+        Announcement::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
         $this->emit("showToast", ["message" => "Pengumumans Deleted Successfully", "type" => "success"]);
     }
 
@@ -40,33 +45,35 @@ class PengumumanTable extends DataTableComponent
                 return ++$this->index;
             }),
 
-            Column::make('judul', 'judul')
+            Column::make('title', 'title')
                 ->searchable()
                 ->sortable(),
-            Column::make('tanggal', 'tanggal')
+            Column::make('date', 'date')
                 ->searchable()
                 ->sortable(),
-            Column::make('rutin', 'rutin')
+            Column::make('repeat', 'repeat')
+                ->format(function ($value){
+                    return boolean_text($value, trans('yes'), trans('no'));
+                })
                 ->searchable()
                 ->sortable(),
-            Column::make('aktif', 'aktif')
+            Column::make('active', 'active')
+                ->format(function ($value){
+                    return boolean_text($value, trans('yes'), trans('no'));
+                })
                 ->searchable()
                 ->sortable(),
-            Column::make('isi', 'isi')
-                ->searchable()
-                ->sortable(),
-
-
             Column::make("Action")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
-                ->format(function ($value, $column, Pengumuman $row) {
-                    return view('livewire.pengumuman._pengumuman-action', compact('row'));
+                ->format(function ($value, $column, Announcement $row) {
+                    return view('livewire.announcement._announcement-action', compact('row'));
                 }),
         ];
     }
 
     public function query(): Builder
     {
-        return Pengumuman::query();
+        return Announcement::query();
     }
 }

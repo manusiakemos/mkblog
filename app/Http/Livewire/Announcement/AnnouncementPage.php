@@ -1,26 +1,30 @@
 <?php
 
 
-namespace App\Http\Livewire\Pengumuman;
+namespace App\Http\Livewire\Announcement;
 
 
 use Livewire\Component;
 
-class PengumumanPage extends Component
+class AnnouncementPage extends Component
 {
-    use PengumumanState;
+    use AnnouncementState;
 
     protected $listeners = ['create', 'edit'];
 
     public function mount()
     {
-        session()->put('active', 'pengumuman');
+        $this->breadcrumbs = [
+            ["link" => "#", "title" => "Admin", "active" => false],
+            ["link" => "#", "title" => trans('messages.announcement'), "active" => true],
+        ];
+        session()->put('active', 'announcement');
         session()->put('expanded', 'admin');
     }
 
     public function render()
     {
-        return view('livewire.pengumuman.pengumuman-page')
+        return view('livewire.announcement.announcement-page')
             ->layout('layouts.admin');
     }
 

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Livewire\Pengumuman;
+namespace App\Http\Livewire\Announcement;
 
-use App\Models\Pengumuman;
+use App\Models\Announcement;
 
-trait PengumumanState
+trait AnnouncementState
 {
     public $previous;
 
     public $updateMode = false;
 
-    public array $pengumuman = [
-        "pengumuman_id" => "",
-        "judul" => "",
-        "tanggal" => "",
-        "rutin" => "",
-        "aktif" => "",
-        "isi" => "",
+    public array $announcement = [
+        "announcement_id" => "",
+        "title" => "",
+        "date" => "",
+        "repeat" => false,
+        "active" => true,
+        "content" => "",
     ];
 
     public $showAlert = false;
@@ -31,35 +31,32 @@ trait PengumumanState
 
     public $showModalConfirm = false;
 
-    public array $breadcrumbs = [
-        ["link" => "#", "title" => "Admin", "active" => false],
-        ["link" => "#", "title" => "Pengumuman", "active" => true],
-    ];
+    public array $breadcrumbs;
 
     public $options = [];
 
     public function create()
     {
-        $this->reset(['pengumuman', 'updateMode']);
+        $this->reset(['announcement', 'updateMode']);
         $this->showModalForm = true;
     }
 
     public function store()
     {
         $rules = [
-            "pengumuman.judul" => [
+            "announcement.title" => [
                 "required"
             ],
-            "pengumuman.tanggal" => [
+            "announcement.date" => [
                 "required"
             ],
-            "pengumuman.rutin" => [
+            "announcement.repeat" => [
                 "required"
             ],
-            "pengumuman.aktif" => [
+            "announcement.active" => [
                 "required"
             ],
-            "pengumuman.isi" => [
+            "announcement.content" => [
                 "required"
             ],
         ];
@@ -67,10 +64,10 @@ trait PengumumanState
 
         $this->updateMode = false;
 
-        $save = $this->handleFormRequest(new Pengumuman);
+        $save = $this->handleFormRequest(new Announcement);
 
         if ($save) {
-            $this->reset(["pengumuman", "showModalForm"]);
+            $this->reset(["announcement", "showModalForm"]);
             $this->showAlert = true;
             $this->alertMessage = "Pengumuman berhasil ditambahkan";
             $this->emit('refreshDt');
@@ -82,27 +79,27 @@ trait PengumumanState
     public function edit($id)
     {
         $this->updateMode = true;
-        $pengumuman = Pengumuman::where('pengumuman_id', $id)->first();
-        $this->pengumuman = $pengumuman->toArray();
+        $announcement = Announcement::where('announcement_id', $id)->first();
+        $this->announcement = $announcement->toArray();
         $this->showModalForm = true;
     }
 
     public function update()
     {
         $rules = [
-            "pengumuman.judul" => [
+            "announcement.title" => [
                 "required"
             ],
-            "pengumuman.tanggal" => [
+            "announcement.date" => [
                 "required"
             ],
-            "pengumuman.rutin" => [
+            "announcement.repeat" => [
                 "required"
             ],
-            "pengumuman.aktif" => [
+            "announcement.active" => [
                 "required"
             ],
-            "pengumuman.isi" => [
+            "announcement.content" => [
                 "required"
             ],
         ];
@@ -111,25 +108,25 @@ trait PengumumanState
 
         $save = false;
 
-        if ($this->pengumuman["pengumuman_id"]) {
-            $db = Pengumuman::find($this->pengumuman["pengumuman_id"]);
+        if ($this->announcement["announcement_id"]) {
+            $db = Announcement::find($this->announcement["announcement_id"]);
             $save = $this->handleFormRequest($db);
         } else {
             abort('403', 'Pengumuman Not Found');
         }
 
         if ($save) {
-            $this->reset("pengumuman");
+            $this->reset("announcement");
             $this->showAlert = true;
             $this->alertMessage = "Pengumuman berhasil diupdate";
-            $this->reset(["pengumuman", "showModalForm"]);
+            $this->reset(["announcement", "showModalForm"]);
             $this->emit('refreshDt');
         }
     }
 
     public function destroy($id)
     {
-        $delete = Pengumuman::destroy($id);
+        $delete = Announcement::destroy($id);
         if ($delete) {
             $this->showAlert = true;
             $this->alertMessage = "Pengumuman berhasil dihapus";
@@ -139,17 +136,17 @@ trait PengumumanState
         }
 
         $this->emit("refreshDt", false);
-        $this->reset(['pengumuman', 'updateMode', 'showModalConfirm']);
+        $this->reset(['announcement', 'updateMode', 'showModalConfirm']);
     }
 
     private function handleFormRequest($db): bool
     {
         try {
-            $db->judul = $this->pengumuman['judul'];
-            $db->tanggal = $this->pengumuman['tanggal'];
-            $db->rutin = $this->pengumuman['rutin'];
-            $db->aktif = $this->pengumuman['aktif'];
-            $db->isi = $this->pengumuman['isi'];
+            $db->title = $this->announcement['title'];
+            $db->date = $this->announcement['date'];
+            $db->repeat = $this->announcement['repeat'];
+            $db->active = $this->announcement['active'];
+            $db->content = $this->announcement['content'];
 
             return $db->save();
         } catch (\Exception $e) {
