@@ -1,7 +1,7 @@
 @if($row->setting_input == 'text')
     {{$row->setting_value}}
 @elseif($row->setting_input == 'radio' || $row->setting_input == 'switch')
-    {{boolean_text($row->setting_value, "Ya", "Tidak")}}
+    {{boolean_text($row->setting_value, "{{__('messages.yes')}}", "{{__('messages.no')}}")}}
 @elseif($row->setting_input == 'file')
     <a href="{{ asset('storage/settings/'.$row->setting_value) }}"
        target="_blank"

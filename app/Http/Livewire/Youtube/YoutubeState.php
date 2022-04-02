@@ -12,9 +12,9 @@ trait YoutubeState
 
     public array $youtube = [
         "youtube_id" => "",
-        "judul" => "",
+        "title" => "",
         "embed" => "",
-        "keterangan" => "",
+        "desc" => "",
     ];
 
     public $showAlert = false;
@@ -45,13 +45,13 @@ trait YoutubeState
     public function store()
     {
         $rules = [
-            "youtube.judul" => [
+            "youtube.title" => [
                 "required"
             ],
             "youtube.embed" => [
                 "required"
             ],
-            "youtube.keterangan" => [
+            "youtube.desc" => [
                 "required"
             ],
         ];
@@ -65,7 +65,7 @@ trait YoutubeState
         if ($save) {
             $this->reset(["youtube", "showModalForm"]);
             $this->showAlert = true;
-            $this->alertMessage = "Youtube berhasil ditambahkan";
+            $this->alertMessage = trans('messages.youtube_added');
             $this->emit('refreshDt');
         } else {
             abort('403', 'Youtube gagal ditambahkan');
@@ -83,13 +83,13 @@ trait YoutubeState
     public function update()
     {
         $rules = [
-            "youtube.judul" => [
+            "youtube.title" => [
                 "required"
             ],
             "youtube.embed" => [
                 "required"
             ],
-            "youtube.keterangan" => [
+            "youtube.desc" => [
                 "required"
             ],
         ];
@@ -107,7 +107,7 @@ trait YoutubeState
 
         if ($save) {
             $this->showAlert = true;
-            $this->alertMessage = "Youtube berhasil diupdate";
+            $this->alertMessage = trans('messages.youtube_updated');
             $this->reset(["youtube", "showModalForm"]);
             $this->emit('refreshDt');
         }
@@ -118,10 +118,10 @@ trait YoutubeState
         $delete = Youtube::destroy($id);
         if ($delete) {
             $this->showAlert = true;
-            $this->alertMessage = "Youtube berhasil dihapus";
+            $this->alertMessage = trans('messages.youtube_destroy');
         } else {
             $this->showAlert = true;
-            $this->alertMessage = "Youtube gagal dihapus";
+            $this->alertMessage = trans('messages.youtube_destroy');
         }
 
         $this->emit("refreshDt", false);
@@ -131,9 +131,9 @@ trait YoutubeState
     private function handleFormRequest($db): bool
     {
         try {
-            $db->judul = $this->youtube['judul'];
+            $db->title = $this->youtube['title'];
             $db->embed = $this->youtube['embed'];
-            $db->keterangan = $this->youtube['keterangan'];
+            $db->desc = $this->youtube['desc'];
 
             return $db->save();
         } catch (\Exception $e) {

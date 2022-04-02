@@ -13,14 +13,14 @@
                        <x-kit::button wire:click="destroy('{{ $contact['contact_id'] }}')"
                                       variant="rounded"
                                       class="font-semibold uppercase bg-primary-500 hover:bg-primary-400 text-white grow w-full">
-                           Ya
+                           {{__('messages.yes')}}
                        </x-kit::button>
                    </x-slot>
                    <x-slot name="no">
                        <x-kit::button x-on:click="$wire.set('showModalConfirm', false)"
                                       variant="rounded"
                                       class="font-semibold uppercase bg-danger-500 hover:bg-danger-400 text-white grow w-full">
-                           Tidak
+                           {{__('messages.no')}}
                        </x-kit::button>
                    </x-slot>
                </x-kit::confirm>

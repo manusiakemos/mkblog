@@ -83,4 +83,12 @@ return [
     'related_link_not_added' => 'Related Link failed to insert',
     'related_link_updated' => 'Related Link updated',
     'related_link_not_updated' => 'Related Link failed to update',
+    #youtube
+    'youtube' => 'Youtube',
+    'youtube_destroy' => 'Youtube removed',
+    'youtube_not_destroy' => 'Youtube failed to remove',
+    'youtube_added' => 'Youtube added',
+    'youtube_not_added' => 'Youtube failed to insert',
+    'youtube_updated' => 'Youtube updated',
+    'youtube_not_updated' => 'Youtube failed to update',
 ];

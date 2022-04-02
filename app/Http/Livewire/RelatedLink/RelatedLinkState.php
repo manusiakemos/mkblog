@@ -68,11 +68,11 @@ trait RelatedLinkState
         if ($save) {
             $this->reset("related_link");
             $this->showAlert = true;
-            $this->alertMessage = "Link Terkait berhasil ditambahkan";
+            $this->alertMessage = trans('messages.related_link_added');
             $this->showModalForm = false;
             $this->emit('refreshDt');
         } else {
-            abort('403', 'Link Terkait gagal ditambahkan');
+            abort('403',  trans('messages.related_link_not_added'));
         }
     }
 
@@ -106,13 +106,13 @@ trait RelatedLinkState
             $db = RelatedLink::find($this->related_link["related_link_id"]);
             $save = $this->handleFormRequest($db);
         } else {
-            abort('403', 'LinkTerkait Not Found');
+            abort('403', 'Related Link Not Found');
         }
 
         if ($save) {
             $this->reset("related_link");
             $this->showAlert = true;
-            $this->alertMessage = "Link Terkait berhasil diupdate";
+            $this->alertMessage =  trans('messages.related_link_updated');
             $this->showModalForm = false;
             $this->emit('refreshDt');
         }
@@ -123,10 +123,10 @@ trait RelatedLinkState
         $delete = RelatedLink::destroy($id);
         if ($delete) {
             $this->showAlert = true;
-            $this->alertMessage = "Link Terkait berhasil dihapus";
+            $this->alertMessage =  trans('messages.related_link_destroy');
         } else {
             $this->showAlert = true;
-            $this->alertMessage = "Link Terkait gagal dihapus";
+            $this->alertMessage =  trans('messages.related_link_not_destroy');
         }
 
         $this->emit("refreshDt", false);
@@ -140,7 +140,7 @@ trait RelatedLinkState
 
         if ($this->image){
             $filename = Str::random() . "." . $this->image->getClientOriginalExtension();
-            $this->image->storeAs('/images/link-terkait/', $filename, 'public');
+            $this->image->storeAs('/images/related-link/', $filename, 'public');
             $db->icon = $filename;
         }
 

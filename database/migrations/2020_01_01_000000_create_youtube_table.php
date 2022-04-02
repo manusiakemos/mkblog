@@ -14,17 +14,12 @@ class CreateYoutubeTable extends Migration
     public function up()
     {
         Schema::create('youtube', function (Blueprint $table) {
-            $table->id('youtube_id')
-                    ;
-                            $table->string('judul' ,190)
-                        ->nullable()
-                ;
-                $table->text('embed')
-                    ;
-                $table->text('keterangan')
-                ->nullable()
-                ;
-    
+            $table->id('youtube_id');
+            $table->string('title', 190)
+                ->nullable();
+            $table->text('embed');
+            $table->text('desc')
+                ->nullable();
             //$table->softDeletes();
             $table->timestamps();
         });

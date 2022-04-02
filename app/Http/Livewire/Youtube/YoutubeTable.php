@@ -15,17 +15,22 @@ class YoutubeTable extends DataTableComponent
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions = [];
 
     protected int $index = 0;
     public string $primaryKey = "youtube_id";
 
+    public function mount()
+    {
+        $this->bulkActions = [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
+
     public function destroySelected()
     {
         Youtube::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
-        $this->emit("showToast", ["message" => "Youtubes Deleted Successfully", "type" => "success"]);
+        $this->emit("showToast", ["message" => __('messages.youtube_destroy'), "type" => "success"]);
     }
 
     public function columns(): array
@@ -41,18 +46,19 @@ class YoutubeTable extends DataTableComponent
                 return ++$this->index;
             }),
 
-            Column::make('judul', 'judul')
+            Column::make('title', 'title')
                 ->searchable()
                 ->sortable(),
-            Column::make('keterangan', 'keterangan')
+            Column::make('desc', 'desc')
                 ->searchable()
-                ->format(function ($value){
+                ->format(function ($value) {
                     return Str::limit($value);
                 })
                 ->sortable(),
 
 
             Column::make("Action")
+                ->addClass("flex items-center justify-center h-16")
                 ->asHtml()
                 ->format(function ($value, $column, Youtube $row) {
                     return view('livewire.youtube._youtube-action', compact('row'));

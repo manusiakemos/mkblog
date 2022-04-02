@@ -14,17 +14,22 @@ class RelatedLinkTable extends DataTableComponent
     //public string $defaultSortDirection = 'asc';
     public bool $perPageAll = true;
 
-    public array $bulkActions = [
-        'destroySelected' => 'Hapus Data Terpilih',
-    ];
+    public array $bulkActions;
 
     protected int $index = 0;
-    public string $primaryKey = "link_terkait_id";
+    public string $primaryKey = "related_link_id";
+
+    public function mount()
+    {
+        $this->bulkActions = [
+            'destroySelected' => trans('messages.destroy_selected'),
+        ];
+    }
 
     public function destroySelected()
     {
         RelatedLink::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
-        $this->emit("showToast", ["message" => "LinkTerkaits Deleted Successfully", "type" => "success"]);
+        $this->emit("showToast", ["message" => trans('messages.related_link_destroy'), "type" => "success"]);
     }
 
     public function columns(): array
@@ -56,7 +61,7 @@ class RelatedLinkTable extends DataTableComponent
             Column::make('icon', 'icon')
                 ->format(function ($value, $column, RelatedLink $row){
                     return view('livewire.tables.image', [
-                        'path' => asset('images/link-terkait/'.$value),
+                        'path' => asset('images/related-link/'.$value),
                     ]);
                 })
                 ->asHtml()
@@ -64,10 +69,10 @@ class RelatedLinkTable extends DataTableComponent
                 ->sortable(),
 
             Column::make("Action")
-                ->addClass('flex flex-col items-center grow')
+                ->addClass('flex justify-center items-center h-16')
                 ->asHtml()
                 ->format(function ($value, $column, RelatedLink $row) {
-                    return view('livewire.link_terkait._link_terkait-action', compact('row'));
+                    return view('livewire.related_link._related_link-action', compact('row'));
                 }),
         ];
     }
