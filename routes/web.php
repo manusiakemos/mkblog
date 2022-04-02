@@ -66,8 +66,8 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
     Route::get("/contact", App\Http\Livewire\Contact\ContactPage::class)
         ->name("contact");
 
-    Route::get("/link-terkait", App\Http\Livewire\LinkTerkait\LinkTerkaitPage::class)
-        ->name("link-terkait");
+    Route::get("/related-link", App\Http\Livewire\RelatedLink\RelatedLinkPage::class)
+        ->name("related-link");
 
     Route::get("/announcement", App\Http\Livewire\Announcement\AnnouncementPage::class)
         ->name("announcement");

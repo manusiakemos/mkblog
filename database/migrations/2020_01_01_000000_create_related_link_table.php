@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLinkTerkaitTable extends Migration
+class CreateRelatedLinkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateLinkTerkaitTable extends Migration
      */
     public function up()
     {
-        Schema::create('link_terkait', function (Blueprint $table) {
-            $table->id('link_terkait_id');
+        Schema::create('related_link', function (Blueprint $table) {
+            $table->id('related_link_id');
             $table->string('label', 190)
                 ->nullable();
             $table->string('url', 190)
@@ -32,6 +32,6 @@ class CreateLinkTerkaitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('link_terkait');
+        Schema::dropIfExists('related_link');
     }
 }

@@ -1,5 +1,5 @@
 <x-slot name="htmlTitle">
-    <title>LinkTerkait</title>
+    <title>{{__('messages.related_link')}}</title>
 </x-slot>
 
 <main class="w-full flex-grow px-3">
@@ -9,13 +9,13 @@
         </div>
         <div class="mb-3">
             <div class="mb-5 flex flex-grow flex-col md:flex-row items-center justify-center md:justify-between">
-                <h4 class="heading mb-3 md:mb-0">Link Terkait</h4>
+                <h4 class="heading mb-3 md:mb-0">{{__('messages.related_link')}}</h4>
 
                 <div class="flex flex-wrap">
                     <x-kit::button wire:click="$emit('create')"
                                    variant="rounded"
                                    class="mb-3 bg-primary-500 hover:bg-primary-400 text-white font-semibold uppercase">
-                        {{__('messages.add')}} Link Terkait
+                        {{__('messages.add')}} {{__('messages.related_link')}}
                     </x-kit::button>
                     <x-kit::button variant="rounded"
                                    class="btn bg-primary-500 hover:bg-primary-400 text-white font-semibold uppercase mb-3 mx-1"
@@ -30,13 +30,13 @@
                 <x-kit::alert class="text-white bg-primary-500 mb-3 border-2 border-white" duration="3000"
                               wire:model="showAlert">{{$alertMessage}}</x-kit::alert>
                 {{-- livewire table data --}}
-                <livewire:link-terkait.link-terkait-table/>
+                <livewire:related-link.related-link-table/>
 
                 {{-- modal form --}}
-                @include('livewire.link_terkait._link_terkait-form')
+                @include('livewire.related_link._related_link-form')
 
                 {{-- confirm delete --}}
-                @include('livewire.link_terkait._link_terkait-confirm')
+                @include('livewire.related_link._related_link-confirm')
 
                 {{-- toast data table --}}
                 <x-kit::toast class="text-white bg-primary-500 mb-3 border-2 border-white" duration="3000"
@@ -52,10 +52,10 @@
     <script>
         Livewire.on("confirmDestroy", (id) => {
             @this.set('showModalConfirm', true);
-            @this.set('link_terkait.link_terkait_id', id);
+            @this.set('related_link.related_link_id', id);
         });
         Livewire.on("refreshDt", (showNoty = false) => {
-            Livewire.components.getComponentsByName('link-terkait.link-terkait-table')[0].$wire.$refresh();
+            Livewire.components.getComponentsByName('related-link.related-link-table')[0].$wire.$refresh();
             if (showNoty) {
             @this.set('showToast', true);
             @this.set('toastMessage', '{{__('messages.table_refreshed')}}');

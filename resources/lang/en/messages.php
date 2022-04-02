@@ -75,4 +75,12 @@ return [
     'announcement_not_added' => 'Announcement failed to insert',
     'announcement_updated' => 'Announcement updated',
     'announcement_not_updated' => 'Announcement failed to update',
+    #related_link
+    'related_link' => 'Related Link',
+    'related_link_destroy' => 'Related Link removed',
+    'related_link_not_destroy' => 'Related Link failed to remove',
+    'related_link_added' => 'Related Link added',
+    'related_link_not_added' => 'Related Link failed to insert',
+    'related_link_updated' => 'Related Link updated',
+    'related_link_not_updated' => 'Related Link failed to update',
 ];

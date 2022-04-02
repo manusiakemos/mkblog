@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\LinkTerkait;
+namespace App\Http\Livewire\RelatedLink;
 
-use App\Models\LinkTerkait;
+use App\Models\RelatedLink;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class LinkTerkaitTable extends DataTableComponent
+class RelatedLinkTable extends DataTableComponent
 {
 
     //public string $defaultSortColumn = '';
@@ -23,7 +23,7 @@ class LinkTerkaitTable extends DataTableComponent
 
     public function destroySelected()
     {
-        LinkTerkait::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
+        RelatedLink::whereIn($this->primaryKey, $this->selectedRowsQuery()->pluck($this->primaryKey))->delete();
         $this->emit("showToast", ["message" => "LinkTerkaits Deleted Successfully", "type" => "success"]);
     }
 
@@ -44,7 +44,7 @@ class LinkTerkaitTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make('url', 'url')
-                ->format(function ($value, $column, LinkTerkait $row){
+                ->format(function ($value, $column, RelatedLink $row){
                     return view('livewire.tables.link', [
                         'path' => $value,
                         'label' => $row->label
@@ -54,7 +54,7 @@ class LinkTerkaitTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             Column::make('icon', 'icon')
-                ->format(function ($value, $column, LinkTerkait $row){
+                ->format(function ($value, $column, RelatedLink $row){
                     return view('livewire.tables.image', [
                         'path' => asset('images/link-terkait/'.$value),
                     ]);
@@ -66,7 +66,7 @@ class LinkTerkaitTable extends DataTableComponent
             Column::make("Action")
                 ->addClass('flex flex-col items-center grow')
                 ->asHtml()
-                ->format(function ($value, $column, LinkTerkait $row) {
+                ->format(function ($value, $column, RelatedLink $row) {
                     return view('livewire.link_terkait._link_terkait-action', compact('row'));
                 }),
         ];
@@ -74,6 +74,6 @@ class LinkTerkaitTable extends DataTableComponent
 
     public function query(): Builder
     {
-        return LinkTerkait::query();
+        return RelatedLink::query();
     }
 }

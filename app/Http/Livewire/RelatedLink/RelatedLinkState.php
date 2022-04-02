@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\LinkTerkait;
+namespace App\Http\Livewire\RelatedLink;
 
-use App\Models\LinkTerkait;
+use App\Models\RelatedLink;
 use Illuminate\Support\Str;
 
-trait LinkTerkaitState
+trait RelatedLinkState
 {
     public $previous;
 
@@ -13,8 +13,8 @@ trait LinkTerkaitState
 
     public $image;
 
-    public array $link_terkait = [
-        "link_terkait_id" => "",
+    public array $related_link = [
+        "related_link_id" => "",
         "label" => "",
         "url" => "https://",
         "icon" => "",
@@ -41,17 +41,17 @@ trait LinkTerkaitState
 
     public function create()
     {
-        $this->reset(['link_terkait', 'updateMode', 'image']);
+        $this->reset(['related_link', 'updateMode', 'image']);
         $this->showModalForm = true;
     }
 
     public function store()
     {
         $rules = [
-            "link_terkait.label" => [
+            "related_link.label" => [
                 "required"
             ],
-            "link_terkait.url" => [
+            "related_link.url" => [
                 "required", "url"
             ],
             "image" => [
@@ -63,10 +63,10 @@ trait LinkTerkaitState
 
         $this->updateMode = false;
 
-        $save = $this->handleFormRequest(new LinkTerkait);
+        $save = $this->handleFormRequest(new RelatedLink);
 
         if ($save) {
-            $this->reset("link_terkait");
+            $this->reset("related_link");
             $this->showAlert = true;
             $this->alertMessage = "Link Terkait berhasil ditambahkan";
             $this->showModalForm = false;
@@ -80,18 +80,18 @@ trait LinkTerkaitState
     {
         $this->updateMode = true;
         $this->reset("image");
-        $link_terkait = LinkTerkait::where('link_terkait_id', $id)->first();
-        $this->link_terkait = $link_terkait->toArray();
+        $related_link = RelatedLink::where('related_link_id', $id)->first();
+        $this->related_link = $related_link->toArray();
         $this->showModalForm = true;
     }
 
     public function update()
     {
         $rules = [
-            "link_terkait.label" => [
+            "related_link.label" => [
                 "required"
             ],
-            "link_terkait.url" => [
+            "related_link.url" => [
                 "required", "url"
             ],
             "image" => [
@@ -102,15 +102,15 @@ trait LinkTerkaitState
 
         $save = false;
 
-        if ($this->link_terkait["link_terkait_id"]) {
-            $db = LinkTerkait::find($this->link_terkait["link_terkait_id"]);
+        if ($this->related_link["related_link_id"]) {
+            $db = RelatedLink::find($this->related_link["related_link_id"]);
             $save = $this->handleFormRequest($db);
         } else {
             abort('403', 'LinkTerkait Not Found');
         }
 
         if ($save) {
-            $this->reset("link_terkait");
+            $this->reset("related_link");
             $this->showAlert = true;
             $this->alertMessage = "Link Terkait berhasil diupdate";
             $this->showModalForm = false;
@@ -120,7 +120,7 @@ trait LinkTerkaitState
 
     public function destroy($id)
     {
-        $delete = LinkTerkait::destroy($id);
+        $delete = RelatedLink::destroy($id);
         if ($delete) {
             $this->showAlert = true;
             $this->alertMessage = "Link Terkait berhasil dihapus";
@@ -130,13 +130,13 @@ trait LinkTerkaitState
         }
 
         $this->emit("refreshDt", false);
-        $this->reset(['link_terkait', 'updateMode', 'showModalConfirm']);
+        $this->reset(['related_link', 'updateMode', 'showModalConfirm']);
     }
 
-    private function handleFormRequest(LinkTerkait $db): bool
+    private function handleFormRequest(RelatedLink $db): bool
     {
-        $db->label = $this->link_terkait['label'];
-        $db->url = $this->link_terkait['url'];
+        $db->label = $this->related_link['label'];
+        $db->url = $this->related_link['url'];
 
         if ($this->image){
             $filename = Str::random() . "." . $this->image->getClientOriginalExtension();

@@ -1,27 +1,27 @@
 <?php
 
 
-namespace App\Http\Livewire\LinkTerkait;
+namespace App\Http\Livewire\RelatedLink;
 
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class LinkTerkaitPage extends Component
+class RelatedLinkPage extends Component
 {
-    use LinkTerkaitState, WithFileUploads;
+    use RelatedLinkState, WithFileUploads;
 
     protected $listeners = ['create', 'edit'];
 
     public function mount()
     {
-        session()->put('active', 'link_terkait');
+        session()->put('active', 'related-link');
         session()->put('expanded', 'admin');
     }
 
     public function render()
     {
-        return view('livewire.link_terkait.link_terkait-page')
+        return view('livewire.related_link.related_link-page')
             ->layout('layouts.admin');
     }
 

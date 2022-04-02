@@ -21,13 +21,13 @@
                         class="dark:fill-white"
                         d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM7 6h4v4H7V6zm0 6h10v2H7v-2zm0 4h10v2H7v-2zm6-9h4v2h-4V7z"/>
                 </svg>
-                <span class="ml-3"> Post </span>
+                <span class="ml-3"> {{__('messages.post')}} </span>
             </x-slot>
             <x-ui.navigation-item session-active="category" link="{{route('category')}}">
-                Category
+                {{__('messages.category')}}
             </x-ui.navigation-item>
             <x-ui.navigation-item session-active="berita" link="{{route('post')}}">
-                Post
+                {{__('messages.post')}}
             </x-ui.navigation-item>
         </x-ui.navigation-dropdown>
 
@@ -39,7 +39,7 @@
                     <path class="{{session('active') != 'slider' ? 'dark:fill-white' : 'fill-white'}}"
                           d="M8.17 3A3.001 3.001 0 0 1 11 1h2c1.306 0 2.417.835 2.83 2H21a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5.17zM4 5v14h16V5h-4.17A3.001 3.001 0 0 1 13 7h-2a3.001 3.001 0 0 1-2.83-2H4zm7-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2zm-1 6l5 3-5 3V9z"/>
                 </svg>
-                <span class="ml-3">Sliders</span>
+                <span class="ml-3">{{__('messages.slide')}}</span>
             </div>
         </x-ui.navigation-item>
 
@@ -52,7 +52,7 @@
                         class="{{session('active') != 'gallery' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M20 13c-1.678 0-3.249.46-4.593 1.259A14.984 14.984 0 0 1 18.147 19H20v-6zm-3.996 6C14.044 14.302 9.408 11 4 11v8h12.004zM4 9c3.83 0 7.323 1.435 9.974 3.796A10.949 10.949 0 0 1 20 11V3h1.008c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3H6V1h2v4H4v4zm14-8v4h-8V3h6V1h2zm-1.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                 </svg>
-                <span class="ml-3"> Gallery</span>
+                <span class="ml-3"> {{__('messages.gallery')}}</span>
             </div>
         </x-ui.navigation-item>
 
@@ -65,7 +65,7 @@
                         class="{{session('active') != 'custom-page' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M5 8v12h14V8H5zm0-2h14V4H5v2zm15 16H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zM7 10h4v4H7v-4zm0 6h10v2H7v-2zm6-5h4v2h-4v-2z"/>
                 </svg>
-                <span class="ml-3"> Custom Page </span>
+                <span class="ml-3"> {{__('messages.page')}}</span>
             </div>
         </x-ui.navigation-item>
 
@@ -78,7 +78,7 @@
                         class="{{session('active') != 'contact' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M3 2h16.005C20.107 2 21 2.898 21 3.99v16.02c0 1.099-.893 1.99-1.995 1.99H3V2zm4 2H5v16h2V4zm2 16h10V4H9v16zm2-4a3 3 0 0 1 6 0h-6zm3-4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8-6h2v4h-2V6zm0 6h2v4h-2v-4z"/>
                 </svg>
-                <span class="ml-3"> Contact </span>
+                <span class="ml-3"> {{__('messages.contact')}} </span>
             </div>
         </x-ui.navigation-item>
 
@@ -91,20 +91,20 @@
                         class="{{session('active') != 'announcement' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M12.866 3l9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0zm-8.66 16h15.588L12 5.5 4.206 19zM11 16h2v2h-2v-2zm0-7h2v5h-2V9z"/>
                 </svg>
-                <span class="ml-3"> Announcement </span>
+                <span class="ml-3"> {{ __('messages.announcement') }} </span>
             </div>
         </x-ui.navigation-item>
 
         {{--link terkait--}}
-        <x-ui.navigation-item session-active="link-terkait" link="{{route('link-terkait')}}">
+        <x-ui.navigation-item session-active="related-link" link="{{route('related-link')}}">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z"/>
                     <path
-                        class="{{session('active') != 'link-terkait' ? 'dark:fill-white' : 'fill-white'}}"
+                        class="{{session('active') != 'related-link' ? 'dark:fill-white' : 'fill-white'}}"
                         d="M13.06 8.11l1.415 1.415a7 7 0 0 1 0 9.9l-.354.353a7 7 0 0 1-9.9-9.9l1.415 1.415a5 5 0 1 0 7.071 7.071l.354-.354a5 5 0 0 0 0-7.07l-1.415-1.415 1.415-1.414zm6.718 6.011l-1.414-1.414a5 5 0 1 0-7.071-7.071l-.354.354a5 5 0 0 0 0 7.07l1.415 1.415-1.415 1.414-1.414-1.414a7 7 0 0 1 0-9.9l.354-.353a7 7 0 0 1 9.9 9.9z"/>
                 </svg>
-                <span class="ml-3"> Link Terkait </span>
+                <span class="ml-3"> {{ __('messages.related_link') }} </span>
             </div>
         </x-ui.navigation-item>
 

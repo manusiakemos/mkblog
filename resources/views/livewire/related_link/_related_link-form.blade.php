@@ -1,12 +1,12 @@
 <div>
     <x-kit::modal id="modal_form" wire:model="showModalForm" size="md">
         <form action="#" wire:submit.prevent="save" class="p-3">
-            <x-kit::form-group text-label="label" input-id="label" error-name="link_terkait.label">
-                <x-kit::input id="label" wire:model.defer="link_terkait.label"/>
+            <x-kit::form-group text-label="label" input-id="label" error-name="related_link.label">
+                <x-kit::input id="label" wire:model.defer="related_link.label"/>
             </x-kit::form-group>
 
-            <x-kit::form-group text-label="url" input-id="url" error-name="link_terkait.url">
-                <x-kit::input id="url" wire:model.defer="link_terkait.url"/>
+            <x-kit::form-group text-label="url" input-id="url" error-name="related_link.url">
+                <x-kit::input id="url" wire:model.defer="related_link.url"/>
             </x-kit::form-group>
 
             <x-kit::form-group text-label="icon" input-id="image" error-name="image">
