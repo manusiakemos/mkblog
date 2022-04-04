@@ -18,7 +18,7 @@ return [
 
     'timezone' => 'Asia/Makassar',
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     'fallback_locale' => 'en',
 
