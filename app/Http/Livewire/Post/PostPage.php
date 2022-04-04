@@ -17,7 +17,7 @@ class PostPage extends Component
 
         $this->breadcrumbs = [
             ["link" => "#", "title" => "Admin", "active" => false],
-            ["link" => "#", "title" => "Berita", "active" => true],
+            ["link" => route('post'), "title" => trans('messages.post'), "active" => false],
         ];
     }
 
