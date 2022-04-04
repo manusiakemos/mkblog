@@ -1,0 +1,32 @@
+[
+    {
+        "id": "5KFzKKJEaiugcPes",
+        "label": "Beranda",
+        "type": "link",
+        "url": "",
+        "sub" : []
+    },
+    {
+        "id": "n9rY1U5k7SCrgVoS",
+        "label": "Profil",
+        "type": "dropdown",
+        "url" : "",
+        "sub": [
+            {
+                "id": "ekILEeyvki7fEzTm",
+                "label": "Struktur Organisasi",
+                "type": "halaman",
+                "url": "halaman-testing",
+                "sub" : []
+            },
+            {
+                "id": "M2O8hFoMUXtq3RVi",
+                "label": "Tujuan Dan Sasaran",
+                "type": "halaman",
+                "url": "halaman-testing",
+                "sub" : []
+            }
+        ]
+    }
+]
+

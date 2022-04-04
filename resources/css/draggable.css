@@ -1,0 +1,13 @@
+.dragArea {
+    min-height: 50px;
+    @apply bg-gray-100 dark:bg-gray-700 px-6 py-3 shadow rounded-lg;
+}
+
+.ghost {
+    height: 50px;
+}
+
+.ghost > .dragArea {
+    height: 50px;
+    outline: 1px dashed;
+}

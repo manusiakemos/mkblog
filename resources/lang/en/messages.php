@@ -91,4 +91,12 @@ return [
     'youtube_not_added' => 'Youtube failed to insert',
     'youtube_updated' => 'Youtube updated',
     'youtube_not_updated' => 'Youtube failed to update',
+    #menu
+    'menu' => 'Menu',
+    'menu_destroy' => 'Menu removed',
+    'menu_not_destroy' => 'Menu failed to remove',
+    'menu_added' => 'Menu added',
+    'menu_not_added' => 'Menu failed to insert',
+    'menu_updated' => 'Menu updated',
+    'menu_not_updated' => 'Menu failed to update',
 ];

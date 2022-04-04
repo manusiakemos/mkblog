@@ -19,7 +19,7 @@ class CreateMenuTable extends Migration
                 ->nullable();
             $table->string('type', 190)
                 ->nullable();
-            $table->string('name', 190)
+            $table->string('label', 190)
                 ->nullable();
             $table->string('url', 190)
                 ->nullable();

@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RelatedLink whereLinkTerkaitId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RelatedLink whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RelatedLink whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RelatedLink whereRelatedLinkId($value)
  */
 class RelatedLink extends Model
 {

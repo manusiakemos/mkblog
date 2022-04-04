@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Models\Menu;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 trait MenuState
 {
@@ -12,13 +12,16 @@ trait MenuState
     public $updateMode = false;
 
     public array $menu = [
-    "id" => "",
-    "parent_id" => "",
-    "type" => "",
-    "name" => "",
-    "url" => "",
-]
-;
+        "id" => "",
+        "label" => "",
+        "type" => "",
+        "url" => "",
+        "children" => "",
+    ];
+
+    public array $list = [];
+
+    public array $pages = [];
 
     public $showAlert = false;
 
@@ -33,122 +36,128 @@ trait MenuState
     public $showModalConfirm = false;
 
     public array $breadcrumbs = [
-        ["link" => "#", "title" => "Admin" , "active" => false],
-        ["link" => "#", "title" => "Menu" , "active" => true],
+        ["link" => "#", "title" => "Admin", "active" => false],
+        ["link" => "#", "title" => "Menu", "active" => true],
     ];
 
     public $options = [];
 
-        public function create()
-        {
-            $this->reset(['menu', 'updateMode']);
-            $this->showModalForm = true;
+    public function getData()
+    {
+        $menu = Menu::all()->toArray();
+
+        $tree = $this->menuBuilder($menu);
+
+        $this->list = $tree;
+    }
+
+    public function menuBuilder($elements, $parentId = 0): array
+    {
+        $branch = [];
+        foreach ($elements as $element) {
+            if ($element['parent_id'] == $parentId) {
+                $children = $this->menuBuilder($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }else{
+                    $element['children'] = [];
+                }
+                $branch[] = $element;
+            }
         }
 
-    public function store()
+        return $branch;
+    }
+
+    public function saveList($list)
     {
-       $rules = [
-    "menu.parent_id" => [
-        "required"
-    ],
-    "menu.type" => [
-        "required"
-    ],
-    "menu.name" => [
-        "required"
-    ],
-    "menu.url" => [
-        "required"
-    ],
-];
-$this->validate($rules);
+        Menu::truncate();
+        $this->saveListFromArray($list, 0);
+        $this->alertMessage = trans('messages.menu_updated');
+        $this->showAlert = true;
+    }
 
-
-        $this->updateMode = false;
-
-        $save = $this->handleFormRequest(new Menu);
-
-        if ($save) {
-            $this->reset("menu");
-            $this->showAlert = true;
-            $this->alertMessage = "Menu berhasil ditambahkan";
-            $this->emit('refreshDt');
-        }else{
-            abort('403', 'Menu gagal ditambahkan');
+    public function saveListFromArray($elements, $parentId = 0)
+    {
+        foreach ($elements as $element) {
+            $db = new Menu();
+            $db->parent_id = $parentId;
+            $db->type = $element['type'];
+            $db->label = $element['label'];
+            $db->url = $element['url'];
+            $db->save();
+            if (isset($element['children']) && count($element['children']) > 0) {
+                $this->saveListFromArray($element['children'], $db->id);
+            }
         }
     }
 
-    public function edit($id)
+    public function resetList()
     {
+        Menu::truncate();
+        Artisan::call('db:seed --class=MenuSeeder');
+        $this->alertMessage = 'data reset';
+        $this->showAlert = true;
+        $this->getData();
+        $this->emit('refresh', $this->list);
+    }
+
+    public function create()
+    {
+        $this->reset(['menu']);
+        $this->updateMode = false;
+        $this->showModalForm = true;
+    }
+
+    public function store()
+    {
+        $db = new Menu();
+        $this->handleFormRequest($db);
+        $this->alertMessage = trans('messages.menu_added');
+        $this->showAlert = true;
+        $this->showModalForm = false;
+        $this->getData();
+        $this->emit('refresh', $this->list);
+    }
+
+    public function edit($el)
+    {
+        $this->menu = $el;
         $this->updateMode = true;
-        $menu = Menu::where('id', $id)->first();
-        $this->menu = $menu->toArray();
         $this->showModalForm = true;
     }
 
     public function update()
     {
-       $rules = [
-    "menu.parent_id" => [
-        "required"
-    ],
-    "menu.type" => [
-        "required"
-    ],
-    "menu.name" => [
-        "required"
-    ],
-    "menu.url" => [
-        "required"
-    ],
-];
-$this->validate($rules);
+        $db = Menu::find($this->menu['id']);
+        $this->handleFormRequest($db);
+        $this->alertMessage = trans('messages.menu_updated');
+        $this->showAlert = true;
+        $this->showModalForm = false;
+        $this->getData();
+        $this->emit('refresh', $this->list);
+    }
 
-
-        $save = false;
-
-        if ($this->menu["id"]) {
-            $db = Menu::find($this->menu["id"]);
-            $save = $this->handleFormRequest($db);
-        } else {
-            abort('403', 'Menu Not Found');
+    public function handleFormRequest(Menu $db)
+    {
+        $element = $this->menu;
+        if (!$this->updateMode) {
+            $db->parent_id = 0;
         }
-
-        if ($save) {
-             $this->reset("menu");
-              $this->showAlert = true;
-              $this->alertMessage = "Menu berhasil diupdate";
-             $this->emit('refreshDt');
-        }
+        $db->type = $element['type'];
+        $db->label = $element['label'];
+        $db->url = $element['url'];
+        $db->save();
     }
 
     public function destroy($id)
     {
-        $delete = Menu::destroy($id);
-        if ($delete) {
-            $this->showAlert = true;
-            $this->alertMessage = "Menu berhasil dihapus";
-        } else {
-            $this->showAlert = true;
-            $this->alertMessage = "Menu gagal dihapus";
-        }
-
-        $this->emit("refreshDt", false);
-        $this->reset(['menu', 'updateMode', 'showModalConfirm']);
-    }
-
-    private function handleFormRequest($db): bool
-    {
-        try {
-            $db->parent_id = $this->menu['parent_id'];
-                $db->type = $this->menu['type'];
-                $db->name = $this->menu['name'];
-                $db->url = $this->menu['url'];
-    
-            return $db->save();
-        }catch (\Exception $e){
-            return $e->getTraceAsString();
-        }
+        $db = Menu::find($id);
+        $db->delete();
+        $this->alertMessage = trans('messages.menu_destroy');
+        $this->showAlert = true;
+        $this->getData();
+        $this->emit('refresh', $this->list);
     }
 
     public function back()

@@ -1,6 +1,7 @@
 @import "./select2.css";
 @import "./editor.css";
 @import "./trix.css";
+@import "./draggable.css";
 
 @tailwind base;
 @tailwind components;

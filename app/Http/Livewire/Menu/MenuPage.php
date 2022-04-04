@@ -4,6 +4,8 @@
 namespace App\Http\Livewire\Menu;
 
 
+use App\Models\CustomPage;
+use App\Models\Menu;
 use Livewire\Component;
 
 class MenuPage extends Component
@@ -16,6 +18,13 @@ class MenuPage extends Component
     {
         session()->put('active', 'menu');
         session()->put('expanded', 'admin');
+
+        $this->options = [
+            'menu_type' => Menu::$menuType,
+            'custom_page' => CustomPage::all()->toArray(),
+            'fixed' => Menu::$menuFixed
+        ];
+        $this->getData();
     }
 
     public function render()
@@ -24,15 +33,15 @@ class MenuPage extends Component
             ->layout('layouts.admin');
     }
 
-     public function save()
-        {
-            $this->updateMode ? $this->update() : $this->store();
-        }
+    public function save()
+    {
+        $this->updateMode ? $this->update() : $this->store();
+    }
 
-         public function hydrate()
-         {
-                $this->resetErrorBag();
-                $this->resetValidation();
-          }
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
 
 }

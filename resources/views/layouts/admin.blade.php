@@ -46,8 +46,9 @@
 
     @stack("styles")
 
-    @stack("scriptsBefore")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    @stack("scriptsBefore")
     <script data-turbolinks-eval="false" data-turbo-eval="false" src="{{ asset('js/alpine-editor.js') }}"
             defer></script>
 

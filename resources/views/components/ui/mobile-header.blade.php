@@ -19,7 +19,7 @@
     </div>
 
     <!-- Dropdown Nav Mobile -->
-    <nav x-show="isOpen" class="pt-4 w-full h-full min-h-screen backdrop-filter backdrop-blur-xl backdrop-sepia-0 bg-black/70 fixed left-0 top-0 z-50" x-transition.duration.500ms>
+    <nav x-show="isOpen" class="pt-4 w-full h-full min-h-screen backdrop-filter backdrop-blur-xl backdrop-sepia-0 bg-black/70 fixed left-0 top-0 z-50 overflow-scroll" x-transition.duration.500ms>
         <div class="px-6 py-3 flex justify-between">
             <h4 class="heading text-white">{{config('setting.app_name.value') ?? config('app.name')}}</h4>
             <button @click="isOpen = !isOpen"

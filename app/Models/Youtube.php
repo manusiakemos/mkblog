@@ -25,6 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Youtube whereKeterangan($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Youtube whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Youtube whereYoutubeId($value)
+ * @property string|null $title
+ * @property string|null $desc
+ * @method static \Illuminate\Database\Eloquent\Builder|Youtube whereDesc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Youtube whereTitle($value)
  */
 class Youtube extends Model
 {

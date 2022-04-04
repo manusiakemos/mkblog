@@ -29,6 +29,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereRutin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereTanggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereUpdatedAt($value)
+ * @property string|null $title
+ * @property string|null $date
+ * @property int|null $repeat
+ * @property int|null $active
+ * @property string|null $content
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereAnnouncementId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereRepeat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereTitle($value)
  */
 class Announcement extends Model
 {
